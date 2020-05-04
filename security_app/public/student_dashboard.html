@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <script type = "text/javascript" >
+   function preventBack(){window.history.forward();}
+    setTimeout("preventBack()", 0);
+    window.onunload=function(){null};
+  </script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Outpass Portal</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="css/student_dashboard.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <div class="d-flex" id="wrapper">
+
+    <!-- Sidebar -->
+    <div class="bg-light border-right" id="sidebar-wrapper">
+      <div class="sidebar-heading">MENU </div>
+      <div class="list-group list-group-flush">
+        <a href="#" class="list-group-item list-group-item-action bg-light" onclick="showup('homepage')">Dashboard</a>
+        <a href="#" class="list-group-item list-group-item-action bg-light" onclick="showup('leaveform')">Request for Leave</a>
+        <a href="#" class="list-group-item list-group-item-action bg-light" onclick="showup('shareloc')">Share Location</a>
+      </div>
+    </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+
+      <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+        <button class="btn btn-primary" id="menu-toggle">Toggle Menu</button>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                User
+              </a>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="#" onclick="prof('existing_profile')">Profile</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#" onclick="my_signout();">Signout</a>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <div class="container-fluid" id="homepage" style="display: block">
+        <h1 class="mt-4">Simple Sidebar</h1>
+        <p>The starting state of the menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will change.</p>
+        <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>. The top navbar is optional, and just for demonstration. Just create an element with the <code>#menu-toggle</code> ID which will toggle the menu when clicked.</p>
+      </div>
+
+      <div class="container-fluid" id="leaveform" style="display: none">
+        <form id="contact" action="" method="post">
+        <h3>Request Leave</h3>
+        <h4>Kindly fill the leave request form</h4>
+        <fieldset>
+          <input placeholder="Your name" type="text" tabindex="1" required autofocus>
+        </fieldset>
+        <fieldset>
+          <input placeholder="Room No." type="text" tabindex="2" required autofocus>
+        </fieldset>
+        <fieldset>
+          <input placeholder="Travel destination" type="text" tabindex="3" required autofocus>
+        </fieldset>
+        <fieldset>
+          <label for="depdate">Departure date from college:</label>
+          <input type="date" id="depdate" name="trip-start"
+               value="2020-04-30"
+               min="2020s-01-01" max="2030-12-31">
+
+        </fieldset>
+        <fieldset>
+          <input placeholder="Mode of transport" type="text" tabindex="4" required>
+        </fieldset>
+        <fieldset>
+          <input placeholder="Ticket number" type="tel" tabindex="5" required>
+        </fieldset>
+        <fieldset>
+          <textarea placeholder="Type any addtional information here...." tabindex="6"></textarea>
+        </fieldset>
+        <fieldset>
+          <button name="submit" type="submit" id="contact-submit" data-submit="...Sending">Send</button>
+        </fieldset>
+        </form>
+      </div>
+
+
+      <div class="container-fluid" id="shareloc" style="display: none">
+        <h3>Share Location</h3> 
+          <div id="map"></div> 
+          <button name="submit" type="submit" id="contact-submit" data-submit="...Sending">Send Location</button>
+      </div>
+
+ <div class="container" id="existing_profile" style="display: none;">
+             
+          </div>
+
+    </div>
+    <!-- /#page-content-wrapper -->
+
+  </div>
+  <!-- /#wrapper -->
+
+  <!--===============================================================================================-->
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<!--===============================================================================================-->
+  <!-- Menu Toggle Script -->
+  <script>
+    $("#menu-toggle").click(function(e) {
+      e.preventDefault();
+      $("#wrapper").toggleClass("toggled");
+    });
+  </script>
+
+<!-- show up -->
+<script>
+   function hideall(){
+      homepage.style.display="none";
+      leaveform.style.display="none";
+      shareloc.style.display="none";
+      existing_profile.style.display="none";
+    }
+    function showup(id) {
+      var x=document.getElementById(id);
+      hideall();
+      x.style.display="block";
+    }
+</script>
+
+<!-- google maps -->
+<script> 
+            function initMap() { 
+              var uluru = {lat: 28.501859, lng: 77.410320}; 
+              var map = new google.maps.Map(document.getElementById('map'), { 
+                zoom: 4, 
+                center: uluru 
+              }); 
+              var marker = new google.maps.Marker({ 
+                position: uluru, 
+                map: map 
+              }); 
+            }
+
+
+
+  function prof(id){
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      var data=JSON.parse(this.responseText);
+      console.log('data inserted in profile');  
+      var course_h='<div class="row"><div class="col-6"><div class="form-group"><labelfor="name">Name:</label><input type="text" class="form-control" id="name" placeholder='+data[0]['name']+' disabled></div></div><div class="col-6"><div class="form-group"><label for="gmail">Email:</label><input class="form-control" id="gmail" type="text" placeholder='+data[0]['gmail']+' disabled></div></div></div><div class="row"><div class="col-6"><div class="form-group"><label for="addr">Address:</label><input type="text" class="form-control" id="addr" placeholder='+data[0]['addr']+' disabled></div></div><div class="col-6"><div class="form-group"><label for="phn">Phone Number:</label><input type="text" class="form-control" id="phn" placeholder='+data[0]['phn']+' disabled></div></div></div><div class="row"><div class="col-6"><div class="form-group"><labelfor="name">Occupation:</label><input type="text" class="form-control" id="occ" placeholder='+data[0]['occ']+' disabled></div></div></div>'
+       showup(id);
+      document.getElementById("existing_profile").innerHTML = course_h;
+  
+} 
+    };
+  xhttp.open("POST", "userData", true);
+  xhttp.send();
+           }
+
+
+function my_signout() {
+     
+ window.location.href='/login'; 
+  }
+
+
+</script> 
+<script async defer 
+          src= 
+      "https://maps.googleapis.com/maps/api/js?key= 
+      AIzaSyB2bXKNDezDf6YNVc-SauobynNHPo4RJb8&callback=initMap"> 
+</script> 
+
+
+</body>
+
+</html>
