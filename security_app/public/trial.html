@@ -8,20 +8,20 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Student Login</title>
+  <title>Warden Login</title>
 
   <!-- Bootstrap core CSS -->
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
   <!-- Custom styles for this template -->
-  <link href="css/student_dashboard.css" rel="stylesheet">
+  <link href="css/trial.css" rel="stylesheet">
 
 </head>
 
 <body>
 
   <div id="header">
-    <img id="logo" src="images/IIIT-B_logo.jpg">
+    <div id="logo"><img id="IIIT-B_logo" src="images/IIIT-B_logo.jpg"></div>
     <span id="heading">OUTGOING MANAGEMENT PORTAL</span>
   </div>
 
@@ -32,8 +32,7 @@
       <div class="sidebar-heading">MENU </div>
       <div class="list-group list-group-flush">
         <a href="#" class="list-group-item list-group-item-action bg-light" onclick="showup('homepage')">Dashboard</a>
-        <a href="#" class="list-group-item list-group-item-action bg-light" onclick="showup('leaveform')">Request for Leave</a>
-        <a href="#" class="list-group-item list-group-item-action bg-light" onclick="showup('shareloc')">Share Location</a>
+        <a href="#" class="list-group-item list-group-item-action bg-light" onclick="showup('requestbox')">Request Inbox</a>
       </div>
     </div>
     <!-- /#sidebar-wrapper -->
@@ -71,47 +70,62 @@
         <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>. The top navbar is optional, and just for demonstration. Just create an element with the <code>#menu-toggle</code> ID which will toggle the menu when clicked.</p>
       </div>
 
-      <div class="container-fluid" id="leaveform" style="display: none">
-        <form id="contact" action="" method="post">
-        <h3>Request Leave</h3>
-        <h4>Kindly fill the leave request form</h4>
-        <fieldset>
-          <input placeholder="Roll number :" type="text" tabindex="1" required autofocus disabled>
-        </fieldset>
-        <fieldset>
-          <input placeholder="Guardian's Contact :" type="text" tabindex="2" required autofocus>
-        </fieldset>
-        <!-- <fieldset>
-          <input placeholder="Travel destination" type="text" tabindex="3" required autofocus>
-        </fieldset> -->
-        <fieldset>
-          <label for="depdate">Departure date from college:</label>
-          <input type="date" id="depdate" 
-               value="yyyy-mm-dd"
-               min="2020-01-01" max="2030-12-31">
+      <div class="container-fluid" id="requestbox" style="display: none">
+        <h2>Leave Request Column Cards</h2>
+        <p>Click on Accept/Reject...</p>
 
-        </fieldset>
-        <!-- <fieldset>
-          <input placeholder="Mode of transport" type="text" tabindex="4" required>
-        </fieldset> -->
-        <!-- <fieldset>
-          <input placeholder="PNR number" type="tel" tabindex="5" required>
-        </fieldset> -->
-        <fieldset>
-          <textarea placeholder="Reason for leave :" tabindex="3"></textarea>
-        </fieldset>
-        <fieldset>
-          <button name="submit" type="submit" id="contact-submit" data-submit="...Sending">Send</button>
-        </fieldset>
-        </form>
+
+        <div class="card mb-3" style="max-width: 540px;">
+          <div class="row no-gutters">
+            <div class="col-md-4">
+              <img src="..." class="card-img" alt="...">
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                <a id="yesbtn" class="vanish1 btn btn-info waves-effect waves-light">Allow</a>
+                <a id="nobtn" class="vanish2 btn btn-outline-info waves-effect">Reject</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card mb-3" style="max-width: 540px;">
+          <div class="row no-gutters">
+            <div class="col-md-4">
+              <img src="..." class="card-img" alt="...">
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card mb-3" style="max-width: 540px;">
+          <div class="row no-gutters">
+            <div class="col-md-4">
+              <img src="..." class="card-img" alt="...">
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
       </div>
-
-
-      <div class="container-fluid" id="shareloc" style="display: none">
-        <h3>Share Location</h3> 
-          <div id="map"></div> 
-          <button name="submit" type="submit" id="contact-submit" data-submit="...Sending">Send Location</button>
-      </div>
+      
 
 
 
@@ -122,9 +136,10 @@
   <!-- /#wrapper -->
 
   <!--===============================================================================================-->
-  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+  <script src="node_modules/jquery/dist/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  
 <!--===============================================================================================-->
   <!-- Menu Toggle Script -->
   <script>
@@ -134,12 +149,39 @@
     });
   </script>
 
+
+<!-- To vanish -->
+<script>
+$('.vanish1').click(function(){
+  this.innerHTML="Allowed";
+  this.style.background = "green";
+  var $target = $(this).parents('li');
+  $target.hide(1000,'swing', function(){ $target.remove(); });
+});
+
+$('.vanish2').click(function(){
+  this.innerHTML="Rejected";
+  this.style.background = "red";
+  var $target = $(this).parents('li');
+  $target.hide(1000,'swing', function(){ $target.remove(); });
+});
+
+
+// function vanish1(id){
+//   var x=document.getElementById(id);
+//   x.innerHTML="Allowed";
+//   x.style.background = "green";
+//   var $target = $(this).parents('li');
+//   $target.hide(1000,'swing', function(){ $target.remove(); });
+// }
+</script>
+
+
 <!-- show up -->
 <script>
    function hideall(){
       homepage.style.display="none";
-      leaveform.style.display="none";
-      shareloc.style.display="none";
+      requestbox.style.display="none";
     }
     function showup(id) {
       var x=document.getElementById(id);
@@ -148,25 +190,6 @@
     }
 </script>
 
-<!-- google maps -->
-<script> 
-            function initMap() { 
-              var uluru = {lat: 28.501859, lng: 77.410320}; 
-              var map = new google.maps.Map(document.getElementById('map'), { 
-                zoom: 4, 
-                center: uluru 
-              }); 
-              var marker = new google.maps.Marker({ 
-                position: uluru, 
-                map: map 
-              }); 
-            } 
-</script> 
-<script async defer 
-          src= 
-      "https://maps.googleapis.com/maps/api/js?key= 
-      AIzaSyB2bXKNDezDf6YNVc-SauobynNHPo4RJb8&callback=initMap"> 
-</script> 
 
 
 </body>
