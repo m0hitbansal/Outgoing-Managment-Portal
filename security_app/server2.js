@@ -60,8 +60,8 @@ var sess;
 
 var connection = mysql.createConnection({
 	  host: "localhost",
-	  user: "shashank",
-	  password: "shashank",
+	  user: "mohit",
+	  password: "",
 	  database: "Outgoing"
 	});
 connection.connect(function(err) {
@@ -166,28 +166,27 @@ app.route('/checkrole')
 //        	console.log(subject);
 // 		});
 
-// app.route('/userData')
-// 	.post((req, res) => {
-// 	var sid = 1;
-// 		var q = "SELECT * from user_data WHERE  id = ?";
-// 		connection.query(q, [sess.userid], function (err, result) {
-// 		if (err){
-// 			res.end(err);
-// 		} 
-// 		else {
-// 			console.log('user data picked up');
-// 			console.log(result);
-// 				res.json(result);
-// 			}
-// 		});
-// 		});
+app.route('/userData')
+	.post((req, res) => {
+		var q = "SELECT * from Student WHERE  email = ?";
+		connection.query(q, [sess.email], function (err, result) {
+		if (err){
+			res.end(err);
+		} 
+		else {
+			console.log('user data picked up');
+			console.log(result);
+				res.json(result);
+			}
+		});
+		});
 
 
 
 // app.route('/username')
 // 	.post((req, res) => {
-// 		var q = "SELECT name from user_data WHERE  id = ?";
-// 		connection.query(q, [sess.userid], function (err, result) {
+// 		var q = "SELECT name from Student WHERE  email = ?";
+// 		connection.query(q, [sess.email], function (err, result) {
 // 		if (err){
 // 			res.end(err);
 // 		} 
@@ -198,7 +197,129 @@ app.route('/checkrole')
 // 			}
 // 		});
 // 		});
-//  //[sess.email,name,address,occupation,phone]
+
+	app.get('/getdetails', function (req, res) {
+		var q = "SELECT roll_no, name from Student WHERE  email = ?";
+		connection.query(q, [sess.email], function (err, result) {
+		if (err){
+			res.end(err);
+		} 
+		else {
+			console.log('roll number picked up');
+			console.log(result);
+				res.send(result);
+			}
+		});
+		});
+app.get('/getLeaves', function (req, res) {
+		var q = "SELECT * from Apply_Leave WHERE  status = ?";
+		connection.query(q, ['0'], function (err, result) {
+		if (err){
+			res.end(err);
+		} 
+		else {
+			console.log('data picked');
+			console.log(result);
+				res.send(result);
+			}
+		});
+		});	
+app.post('/userdetails', function (req, res) {
+		console.log(req.body.roll);
+		var q = "SELECT * from Student WHERE  roll_no = ?";
+		connection.query(q, [req.body.roll], function (err, result) {
+		if (err){
+			res.end(err);
+		} 
+		else {
+			console.log('data picked');
+			console.log(result);
+				res.send(result);
+			}
+		});
+		});	
+
+app.post('/request_leave', function (req, res) {
+		console.log('Inside request leave');
+		var roll_number=req.body.roll;
+		var parent=req.body.gdnphn;
+		var depart=req.body.depdate;
+		var resn=req.body.rsn;
+		var status="0";
+		// var roll_number=req.body.p;
+		// var parent=req.body.q;
+		// var depart=req.body.r;
+		// var resn=req.body.s;
+		console.log(roll_number);
+		console.log(parent);
+		console.log(depart);
+		console.log(resn);
+		var q = "INSERT INTO Apply_Leave (roll_no,parents_contact,departure,reason,status) VALUES(?,?,?,?,?)";
+		console.log("into add_link");
+		connection.query(q, [roll_number,parent,depart,resn,status], function (err, result) {
+		if (err){
+
+			console.log("nahi gaya");
+		} else {
+			console.log("link inserted");
+		}
+		});
+		res.set('Content-Type', 'text/html')
+		res.sendFile(__dirname + '/public/student_dashboard.html');
+
+
+		// var q = "UPDATE user_data SET name = ? , addr = ?, phn = ? where id = ?";
+		// connection.query(q,[name,address,phone,sess.userid], function (err, result) {
+		// if (err){
+		// 	console.log(err);
+		// 	res.end(err);
+		// } 
+		// else {
+		// 	console.log(sess.occ);
+		// 	console.log(' data updated successfully');
+		// res.set('Content-Type', 'text/html')
+		// var occupation = sess.occ;
+		// if(occupation == 'user')
+	 //    res.sendFile(__dirname + '/public/dashboard.html');
+		// if(occupation == 'teacher')
+		// res.sendFile(__dirname + '/public/dashboard1.html');
+		// 	}
+		// });
+   });
+
+
+
+
+app.post('/allow_leave', function (req, res) {
+		console.log(req.body.request_no);
+		var q = "UPDATE Apply_Leave set status = ? where id = ?";
+		connection.query(q, ["1",req.body.request_no], function (err, result) {
+		if (err){
+			res.end(err);
+		} 
+		else {
+			console.log('Leave accepted');
+				res.end();
+			}
+		});
+		});	
+
+
+app.post('/reject_leave', function (req, res) {
+		console.log(req.body.request_no);
+		var q = "UPDATE Apply_Leave set status = ? where id = ?";
+		connection.query(q, ["-1",req.body.request_no], function (err, result) {
+		if (err){
+			res.end(err);
+		} 
+		else {
+			console.log('Leave rejected');
+				res.end();
+			}
+		});
+		});	
+
+
 
 // app.post('/insert_details', function (req, res) {
 // 		console.log('Inside insert function');
