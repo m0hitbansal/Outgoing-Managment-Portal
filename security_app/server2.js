@@ -10,38 +10,38 @@ var myModule = require('./public/scripts/script');
 var cors = require('cors');
 const multer = require('multer');
 app.use(express.static(path.join(__dirname, 'public')))
+ let cron = require('node-cron');
+ let nodemailer = require('nodemailer');
 
 
-// var dir = './public/datastore';
-//   if (!fs.existsSync(dir)){
-//           fs.mkdirSync(dir);
-//       }
-
-// var subject = "";
-//  const multerConfig = {
-//     //specify diskStorage (another option is memory)
-//     storage: multer.diskStorage({
-
-//       //specify destination
-//       destination: function(req, file, next){
-//       		var dir = './public/datastore/'+subject;
-//   			if (!fs.existsSync(dir)){
-//           	fs.mkdirSync(dir);
-//       			}
-//         next(null, './public/datastore/'+subject);
-//       },
-
-//       //specify the filename to be unique
-//       filename: function(req, file, next){
-//        // console.log(file);
-//         //get the file mimetype ie 'image/jpeg' split and prefer the second value ie'jpeg'
-//         //const ext = file.mimetype.split('/')[0];
-//         //set the file fieldname to a unique name containing the original name, current datetime and the extension.
-//         next(null, file.originalname);
-//       }
-//     }),
-//   };
-
+//   // e-mail transport configuration
+let transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: 'bmohit0985@gmail.com',
+      pass: '9414989746@m'
+    }
+});
+function sendmail(mailOptions){
+    transporter.sendMail(mailOptions, function(error, info){
+        if (error) {
+          console.log(error);
+        } 
+        else {
+          console.log('Email sent: ' + info.response);
+        }
+    });
+}
+//cron.schedule('12 1 * * *', () => {
+//   // Send e-mail
+// 		let mailOptions = {
+//         from: 'bmohit0985@gmail.com',
+//         to: 'bmohit098@gmail.com',
+//         subject: 'Email from Node-App: A Test Message!',
+//         text: 'Some content to send'
+//    };
+//    sendmail(mailOptions);
+//});
 
 var session = require('express-session')
 
@@ -76,131 +76,69 @@ app.get('/', (req, res) => {
 
 app.route('/login')
     .get((req, res) => {
-    	res.set('Content-Type', 'text/html')
-        res.sendFile(__dirname + '/public/index.html');
-    });
+	res.set('Content-Type', 'text/html')
+    res.sendFile(__dirname + '/public/index.html');
+});
 
-// app.route('/logout')
-//     .get((req, res) => {
-//     	req.session.destroy();
-//     	res.set('Content-Type', 'text/html')
-//         res.sendFile(__dirname + '/public/index.html');
-//     });
 
-// app.route('/login2')
-// 	.post((req, res) => {
-// 		console.log(req.body.username);
-//        	res.set('Content-Type', 'text/html')
-// 	    res.sendFile(__dirname + '/public/student_dashboard.html');
-// 	});
-
-// app.route('/login2')
-// 	.get(myModule.isauthenticated, (req, res) => {
-//        	res.set('Content-Type', 'text/html')
-// 	    res.sendFile(__dirname + '/public/profile.html');
-// 	});
-// app.route('/login3')
-// 	.get(myModule.isauthenticated, (req, res) => {
-//        	res.set('Content-Type', 'text/html')
-// 	    res.sendFile(__dirname + '/public/editProfile.html');
-// 	});
-
-// app.route('/user')
-// 	.get(myModule.isauthenticated, (req, res) => {
-//        	res.set('Content-Type', 'text/html')
-// 	    res.sendFile(__dirname + '/public/dashboard.html');
-// 	});
-// app.route('/login4')
-// 	.get(myModule.isauthenticated, (req, res) => {
-//        	res.set('Content-Type', 'text/html')
-// 	    res.sendFile(__dirname + '/public/dashboard1.html');
-// 	});
 app.route('/checkrole')
-	.post((req, res) => {
-		
-		email=req.body.email;
-		pass=req.body.pass;
-		console.log(email);
-		console.log(pass);
-		var q = "SELECT role from Login WHERE email = ? AND password = ?";
-		connection.query(q, [email,pass], function (err, result) {
+	.post((req, res) => {		
+	email=req.body.email;
+	pass=req.body.pass;
+	console.log(email);
+	console.log(pass);
+	var q = "SELECT role from Login WHERE email = ? AND password = ?";
+	connection.query(q, [email,pass], function (err, result) {
 		if (err){
 			res.end(err);
-		} else {
-			       	
-				if (result.length){
-					console.log(result);
-					sess = req.session;
-					sess.email=req.body.email;
-					if(result[0].role=='student'){
-					res.set('Content-Type', 'text/html')
-	   				res.sendFile(__dirname + '/public/student_dashboard.html');
-	   				}
-	   			else if(result[0].role=='warden'){
-					res.set('Content-Type', 'text/html')
-	   				res.sendFile(__dirname + '/public/warden_dashboard.html');
-	   				}
-	   			else if(result[0].role=='guard'){
-					res.set('Content-Type', 'text/html')
-	   				res.sendFile(__dirname + '/public/guard_dashboard.html');
-	   				}
-				}
-				else
-					{
-					res.set('Content-Type', 'text/html')
-    			    res.sendFile(__dirname + '/public/index.html');	
-				}
-		 	};
-		 });			
+		} 
+		else {       	
+			if (result.length){
+				console.log(result);
+				sess = req.session;
+				sess.email=req.body.email;
+				if(result[0].role=='student'){
+				res.set('Content-Type', 'text/html')
+   				res.sendFile(__dirname + '/public/student_dashboard.html');
+   				}
+   			else if(result[0].role=='warden'){
+				res.set('Content-Type', 'text/html')
+   				res.sendFile(__dirname + '/public/warden_dashboard.html');
+   				}
+   			else if(result[0].role=='guard'){
+				res.set('Content-Type', 'text/html')
+   				res.sendFile(__dirname + '/public/guard_dashboard.html');
+   				}
+			}
+			else
+				{
+				res.set('Content-Type', 'text/html')
+			    res.sendFile(__dirname + '/public/index.html');	
+			}
+		 }
+	});			
 			
-		});
-	
-
-// app.route('/update_folder')
-// 	.post((req, res) => {
-//        queries = Number(req.body.cid);
-//        	console.log(queries);
-//        	console.log("update folder ke andar agya");
-//        	subject = queries;
-//        	console.log('now subject is');
-//        	console.log(subject);
-// 		});
+});
 
 app.route('/userData')
 	.post((req, res) => {
-		var q = "SELECT * from Student WHERE  email = ?";
-		connection.query(q, [sess.email], function (err, result) {
+	var q = "SELECT * from Student WHERE  email = ?";
+	connection.query(q, [sess.email], function (err, result) {
 		if (err){
 			res.end(err);
 		} 
 		else {
 			console.log('user data picked up');
 			console.log(result);
-				res.json(result);
-			}
-		});
-		});
+			res.json(result);
+		}
+	});
+});
 
 
-
-// app.route('/username')
-// 	.post((req, res) => {
-// 		var q = "SELECT name from Student WHERE  email = ?";
-// 		connection.query(q, [sess.email], function (err, result) {
-// 		if (err){
-// 			res.end(err);
-// 		} 
-// 		else {
-// 			console.log('user data picked up');
-// 			console.log(result);
-// 				res.json(result);
-// 			}
-// 		});
-// 		});
-
-	app.get('/getdetails', function (req, res) {
-		var q = "SELECT roll_no, name from Student WHERE  email = ?";
-		connection.query(q, [sess.email], function (err, result) {
+app.get('/getdetails', function (req, res) {
+	var q = "SELECT roll_no, name from Student WHERE  email = ?";
+	connection.query(q, [sess.email], function (err, result) {
 		if (err){
 			res.end(err);
 		} 
@@ -208,86 +146,70 @@ app.route('/userData')
 			console.log('roll number picked up');
 			console.log(result);
 				res.send(result);
-			}
-		});
-		});
+		}
+	});
+});
+
 app.get('/getLeaves', function (req, res) {
-		var q = "SELECT * from Apply_Leave WHERE  status = ?";
-		connection.query(q, ['0'], function (err, result) {
+	var q = "SELECT * from Apply_Leave WHERE  status = ?";
+	connection.query(q, ['0'], function (err, result) {
 		if (err){
 			res.end(err);
 		} 
 		else {
 			console.log('data picked');
 			console.log(result);
-				res.send(result);
-			}
-		});
-		});	
+			res.send(result);
+		}
+	});
+});	
+
 app.post('/userdetails', function (req, res) {
-		console.log(req.body.roll);
-		var q = "SELECT * from Student WHERE  roll_no = ?";
-		connection.query(q, [req.body.roll], function (err, result) {
+	console.log(req.body.roll);
+	var q = "SELECT * from Student WHERE  roll_no = ?";
+	connection.query(q, [req.body.roll], function (err, result) {
 		if (err){
 			res.end(err);
 		} 
 		else {
 			console.log('data picked');
 			console.log(result);
+			if(result.length>0)
 				res.send(result);
+
+			else{
+				console.log("i am he");
+				res.sendStatus(404);
 			}
-		});
-		});	
+		}	
+	});
+});	
 
 app.post('/request_leave', function (req, res) {
-		console.log('Inside request leave');
-		var roll_number=req.body.roll;
-		var parent=req.body.gdnphn;
-		var depart=req.body.depdate;
-		var resn=req.body.rsn;
-		var status="0";
-		// var roll_number=req.body.p;
-		// var parent=req.body.q;
-		// var depart=req.body.r;
-		// var resn=req.body.s;
-		console.log(roll_number);
-		console.log(parent);
-		console.log(depart);
-		console.log(resn);
-		var q = "INSERT INTO Apply_Leave (roll_no,parents_contact,departure,reason,status) VALUES(?,?,?,?,?)";
-		console.log("into add_link");
-		connection.query(q, [roll_number,parent,depart,resn,status], function (err, result) {
+	console.log('Inside request leave');
+	var roll_number=req.body.roll;
+	var parent=req.body.gdnphn;
+	var depart=req.body.depdate;
+	var resn=req.body.rsn;
+	var status="0";
+	console.log(roll_number);
+	console.log(parent);
+	console.log(depart);
+	console.log(resn);
+	var q = "INSERT INTO Apply_Leave (roll_no,parents_contact,departure,reason,status) VALUES(?,?,?,?,?)";
+	console.log("into add_link");
+	connection.query(q, [roll_number,parent,depart,resn,status], function (err, result) {
 		if (err){
 
 			console.log("nahi gaya");
-		} else {
+		} 
+		else {
 			console.log("link inserted");
 		}
-		});
-		res.set('Content-Type', 'text/html')
-		res.sendFile(__dirname + '/public/student_dashboard.html');
-
-
-		// var q = "UPDATE user_data SET name = ? , addr = ?, phn = ? where id = ?";
-		// connection.query(q,[name,address,phone,sess.userid], function (err, result) {
-		// if (err){
-		// 	console.log(err);
-		// 	res.end(err);
-		// } 
-		// else {
-		// 	console.log(sess.occ);
-		// 	console.log(' data updated successfully');
-		// res.set('Content-Type', 'text/html')
-		// var occupation = sess.occ;
-		// if(occupation == 'user')
-	 //    res.sendFile(__dirname + '/public/dashboard.html');
-		// if(occupation == 'teacher')
-		// res.sendFile(__dirname + '/public/dashboard1.html');
-		// 	}
-		// });
-   });
-
-
+	});
+	res.set('Content-Type', 'text/html')
+	res.sendFile(__dirname + '/public/student_dashboard.html');
+});
 
 
 app.post('/allow_leave', function (req, res) {
@@ -299,10 +221,25 @@ app.post('/allow_leave', function (req, res) {
 		} 
 		else {
 			console.log('Leave accepted');
-				res.end();
-			}
-		});
-		});	
+			var q = "Select * from Student where roll_no= (select roll_no from Apply_Leave where id = ?)";
+			connection.query(q, [req.body.request_no], function (err, result) {
+				if (err){
+					res.end(err);
+				} 
+				else{
+					let mailOptions = {
+		        		from: 'bmohit0985@gmail.com',
+				        to: result[0]['email'] ,
+				        subject: 'Permission Granted',
+				        text: 'Dear '+ result[0]['name']+',\n you can go.'
+					};
+					sendmail(mailOptions);
+					res.end();
+				}
+			});
+		}
+	});
+});	
 
 
 app.post('/reject_leave', function (req, res) {
@@ -314,12 +251,93 @@ app.post('/reject_leave', function (req, res) {
 		} 
 		else {
 			console.log('Leave rejected');
-				res.end();
+			var q = "Select * from Student where roll_no= (select roll_no from Apply_Leave where id = ?)";
+			connection.query(q, [req.body.request_no], function (err, result) {
+				if (err){
+					res.end(err);
+				} 
+				else{
+					let mailOptions = {
+		        		from: 'bmohit0985@gmail.com',
+				        to: result[0]['email'] ,
+				        subject: 'Permission Rejected',
+				        text: 'Dear '+ result[0]['name']+',\n Sorry , You can not go.'
+					};
+					sendmail(mailOptions);
+					res.end();
+				}
+			});
+			res.end();
+		}
+	});
+});	
+
+app.post('/checkinout', function (req, res) {
+	var q = "SELECT roll_no,MAX(id) as id from Record_InOut where roll_no= ? GROUP BY roll_no";
+	connection.query(q, [req.body.roll], function (err, result) {
+		if (err){
+			res.end(err);
+		} 
+		else {
+			if(!result.length){
+				console.log("no record");
+				res.send("OUT");
 			}
-		});
-		});	
+            else{
+                var q = "SELECT * from Record_InOut where id= ? and entry_time IS NULL ";
+				connection.query(q, [result[0]['id']], function (err, result1) {
+					if (err){
+						res.end(err);
+					}
+					else{
+						if(result1.length){
+							console.log(result1);
+							res.send(result1);
+						}
+						else{
+							res.send("OUT");
+						}
+					} 
+				});
+            }
+		}
+	});
+});	
 
-
+app.post('/localcheckout', function (req, res) {
+	console.log(req.body.roll);
+	var date= new Date();
+	var exittime=date.toISOString().split('T')[0] + ' '  
+                        + date.toTimeString().split(' ')[0]; 
+	console.log(exittime);
+	var q = "INSERT INTO Record_InOut (roll_no,exit_time) VALUES(?,?)";
+	console.log("into add_link");
+	connection.query(q, [req.body.roll,exittime], function (err, result) {
+		if (err){
+			res.end(err);
+		} 
+		else {
+			res.send("done");
+		}
+	});
+});
+app.post('/localcheckin', function (req, res) {
+	console.log(req.body.id);
+	var date= new Date();
+	var entrytime=date.toISOString().split('T')[0] + ' '  
+                        + date.toTimeString().split(' ')[0]; 
+	
+	var q = "UPDATE Record_InOut SET entry_time=? where id=?";
+	console.log("into add_link");
+	connection.query(q, [entrytime,req.body.id], function (err, result) {
+		if (err){
+			res.end(err);
+		} 
+		else {
+			res.send("done");
+		}
+	});
+});
 
 // app.post('/insert_details', function (req, res) {
 // 		console.log('Inside insert function');
