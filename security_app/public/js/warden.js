@@ -3,33 +3,7 @@ $("#menu-toggle").click(function(e) {
   $("#wrapper").toggleClass("toggled");
 });
 
-$('.vanish1').click(function(){
-  this.innerHTML="Allowed";
-  this.style.background = "green";
-  var $target = $(this).parents('li');
-  $target.hide(1000,'swing', function(){ $target.remove(); });
-});
-
-$('.vanish2').click(function(){
-  this.innerHTML="Rejected";
-  this.style.background = "red";
-  var $target = $(this).parents('li');
-  $target.hide(1000,'swing', function(){ $target.remove(); });
-});
-
-
-// function vanish1(id){
-//   var x=document.getElementById(id);
-//   x.innerHTML="Allowed";
-//   x.style.background = "green";
-//   var $target = $(this).parents('li');
-//   $target.hide(1000,'swing', function(){ $target.remove(); });
-// }
-
-
-
-
-   function hideall(){
+  function hideall(){
       homepage.style.display="none";
       requestbox.style.display="none";
     }
@@ -77,25 +51,29 @@ $.ajax({
 
 function allow(id){
   $.ajax({
-           method: "POST",
-           url: "/allow_leave",
-           data: {request_no: id},
-            success:function( result ) {
-              console.log('allowed');
-              $('#'+id).hide(1000,'swing', function(){ $('id').remove(); 
-          }); 
-            }
-          });
+   method: "POST",
+   url: "/allow_leave",
+   data: {request_no: id},
+    success:function( result ) {
+      console.log('allowed');
+      $('#'+id).hide(1000,'swing', function(){ $('id').remove(); 
+      }); 
+    }
+  });
 
 }
 function reject(id){
 $.ajax({
-           method: "POST",
-           url: "/reject_leave",
-           data: {request_no: id},
-            success:function( result ) {
-             $('#'+id).hide(1000,'swing', function(){ $('id').remove(); 
-              }); 
-            }
-          });
+   method: "POST",
+   url: "/reject_leave",
+   data: {request_no: id},
+    success:function( result ) {
+     $('#'+id).hide(1000,'swing', function(){ $('id').remove(); 
+      }); 
+    }
+  });
+}
+function my_signout() {
+
+  window.location.href='/login';
 }

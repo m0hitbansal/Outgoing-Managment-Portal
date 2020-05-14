@@ -11,9 +11,9 @@ PRIMARY KEY (id)
 
 insert into Login values(1,'guard@gmail.com','guard','guard');
 insert into Login values(2,'warden@gmail.com','warden','warden');
-insert into Login values(3,'shashank@gmail.com','shashank','student');
-insert into Login values(4,'mohit@gmail.com','mohit','student');
-insert into Login values(5,'archit@gmail.com','archit','student');
+insert into Login values(3,'shashank.agarwal@iiitb.org','shashank','student');
+insert into Login values(4,'mohit.bansal@iiitb.org','mohit','student');
+insert into Login values(5,'archit.semwal@iiitb.org','archit','student');
 
 CREATE TABLE IF NOT EXISTS Student(
 roll_no varchar(255) NOT NULL,
@@ -28,9 +28,9 @@ CONSTRAINT fk_email FOREIGN KEY (email) REFERENCES Login(email)
 ON DELETE CASCADE
 )ENGINE=MyISAM  DEFAULT CHARSET=latin1;
 
-insert into Student values('MT2019026','archit semwal','archit@gmail.com',3232323232,'Bhaskara',470,'semwal@gmail.com');
-insert into Student values('MT20190100','shashank agarwal','shashank@gmail.com',9149266884,'Bhaskara',747,'agarwal@gmail.com');
-insert into Student values('MT2019048','mohit bansal','mohit@gmail.com',8585858585,'Bhaskara',628,'bansal@gmail.com');
+insert into Student values('MT2019026','archit semwal','archit.semwal@iiitb.org',3232323232,'Bhaskara',470,'semwal@gmail.com');
+insert into Student values('MT20190100','shashank agarwal','shashank.agarwal@iiitb.org',9149266884,'Bhaskara',747,'agarwal@gmail.com');
+insert into Student values('MT2019048','mohit bansal','mohit.bansal@iiitb.org',8585858585,'Bhaskara',628,'bansal@gmail.com');
 
 
 
