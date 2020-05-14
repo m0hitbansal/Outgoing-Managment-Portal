@@ -26,9 +26,11 @@ $.ajax({
            url: "/userdetails",
            data: {roll: data[i]['roll_no']},
             success:function( result ) {
-              console.log(data[i].reason);
-            console.log(data);
-               
+             var date=new Date(data[i]['departure']);
+             date= date.toISOString().split('T')[0] + ' '  
+                        + date.toTimeString().split(' ')[0];
+              date=date.slice(0,10);          
+             console.log(date);
              name=result[0]['name'];
              room=result[0]['room_no'];
              hostel=result[0]['hostel_name'];
@@ -36,7 +38,7 @@ $.ajax({
                 str+='<label for="roll">Roll Number : </label><input type="text"  tabindex="1" value="'+data[i]['roll_no']+'" disabled></fieldset>';
                 str+='<fieldset><label for="hostel">Hostel : </label><input type="text" tabindex="2" value="'+hostel+'" disabled></fieldset>';
                 str+='<fieldset><label for="room">Room Number : </label><input type="number"  tabindex="3" value="'+room+'" disabled></fieldset>';
-                str+='<fieldset><label for="date">Departure Date : </label><input type="date"  tabindex="4" value="" disabled></fieldset>';
+                str+='<fieldset><label for="date">Departure Date : </label><input type="date"  tabindex="4" value="'+date+'" disabled></fieldset>';
                 str+='<fieldset><label for="reason">Reason for Leave : </label><textarea  tabindex="5"  disabled>'+data[i]['reason']+'</textarea></fieldset>';
                 str+='<a id="yesbtn" class="vanish1 btn btn-info waves-effect waves-light" onclick="allow('+data[i]['id']+')">Allow</a><a id="nobtn" class="vanish2 btn btn-outline-info waves-effect" onclick="reject('+data[i]['id']+')">Reject</a></div></li>';
            $('#showRequest').append(str);

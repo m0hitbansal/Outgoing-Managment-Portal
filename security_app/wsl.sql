@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS Apply_Leave(
 id int(255) NOT NULL AUTO_INCREMENT,
 roll_no varchar(255) NOT NULL,
 parents_contact varchar(255) NOT NULL,
-departure DATE NOT NULL,
+departure DATETIME NOT NULL,
 reason varchar(3000) NOT NULL,
 status varchar(200) NOT NULL,
 PRIMARY KEY (id),
