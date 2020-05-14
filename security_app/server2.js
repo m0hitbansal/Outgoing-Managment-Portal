@@ -12,7 +12,8 @@ const multer = require('multer');
 app.use(express.static(path.join(__dirname, 'public')))
  let cron = require('node-cron');
  let nodemailer = require('nodemailer');
-
+var d=new Date();
+console.log(d);
 
 //   // e-mail transport configuration
 let transporter = nodemailer.createTransport({
@@ -104,7 +105,7 @@ app.route('/checkrole')
    			else if(result[0].role=='warden'){
 				res.set('Content-Type', 'text/html')
    				res.sendFile(__dirname + '/public/warden_dashboard.html');
-   				}
+   			}
    			else if(result[0].role=='guard'){
 				res.set('Content-Type', 'text/html')
    				res.sendFile(__dirname + '/public/guard_dashboard.html');
@@ -189,7 +190,11 @@ app.post('/request_leave', function (req, res) {
 	console.log('Inside request leave');
 	var roll_number=req.body.roll;
 	var parent=req.body.gdnphn;
-	var depart=req.body.depdate;
+	var depart=new Date(req.body.depdate);
+	depart= depart.toISOString().split('T')[0] + ' '  
+                        + depart.toTimeString().split(' ')[0];
+                        console.log(depart);
+
 	var resn=req.body.rsn;
 	var status="0";
 	console.log(roll_number);
