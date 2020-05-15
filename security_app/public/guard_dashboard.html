@@ -154,40 +154,13 @@
   
 <!--===============================================================================================-->
   <!-- Menu Toggle Script -->
-  <script>
-    $("#menu-toggle").click(function(e) {
-      e.preventDefault();
-      $("#wrapper").toggleClass("toggled");
-    });
-  </script>
-
+  
 
 <!-- show up -->
 <script>
-   function hideall(){
-      homepage.style.display="none";
-      inout.style.display="none";
-      leave_outpass.style.display="none";
-      stud_details.style.display="none";
-      leave_outpass.style.display="none";
-      leave_details.style.display="none";
-    }
-    function showup(id) {
-      var x=document.getElementById(id);
-      hideall();
-      x.style.display="block";
-    }
-
-    // jquery functions for incoming-outgoing
-    function showdetails(){
-      $("#stud_roll").val("");
-      $("#stud_details").fadeIn();
-      
-    }
-    function hidedetails(){
-      $("#stud_details").fadeOut();
-    }
-
+  
+   
+   
      function disable_back(){
       $("#enter_roll").val("");
       $("#leave_details").modal({backdrop: 'static', keyboard: false})  ;
