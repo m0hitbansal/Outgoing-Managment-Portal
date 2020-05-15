@@ -1,3 +1,15 @@
+.form-row input{
+  font: 400 12px/16px "Roboto", Helvetica, Arial, sans-serif;
+  border: 1px solid #ccc;
+  background: #FFF;
+  margin: 0 10px 10px;
+  padding: 10px;
+}
+
+#leave_outpass{
+  margin: 10px;
+}
+
 /*roll textbox and GO button*/
 #inout{
   width: 60%;

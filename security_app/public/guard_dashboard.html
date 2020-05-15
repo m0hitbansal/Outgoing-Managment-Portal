@@ -33,7 +33,7 @@
       <div class="list-group list-group-flush">
         <a href="#" class="list-group-item list-group-item-action bg-light" onclick="showup('homepage')">Dashboard</a>
         <a href="#" class="list-group-item list-group-item-action bg-light" onclick="showup('inout')">Incoming-Outgoing</a>
-        <a href="#" class="list-group-item list-group-item-action bg-light" onclick="hideall()">Outpass for Leave</a>
+        <a href="#" class="list-group-item list-group-item-action bg-light" onclick="showup('leave_outpass')">Outpass for Leave</a>
         <a href="#" class="list-group-item list-group-item-action bg-light" onclick="hideall()">Parking</a>
       </div>
     </div>
@@ -71,11 +71,11 @@
         <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>. The top navbar is optional, and just for demonstration. Just create an element with the <code>#menu-toggle</code> ID which will toggle the menu when clicked.</p>
       </div>
 
-      <div class="container-fluid" id="inout" style="display: none">
+      <div class="col-md-6" id="inout" style="display: none">
         <div class="input-group mb-3">
         <input type="text" class="form-control" id="entry" placeholder="Enter Roll Number">
           <div class="input-group-append">
-            <button class="btn btn-success" type="submit" onclick="showdetails()">Go</button> 
+            <button class="btn btn-success" type="submit" onclick="showdetails('show_details')">Go</button> 
          </div>
       </div>
       </div>
@@ -86,6 +86,51 @@
       </div>
     </div>
 
+
+
+    <div class="col-md-6" id="leave_outpass" style="display: none">
+        <div class="input-group mb-3">
+        <input type="text" class="form-control" id="enter_roll" placeholder="Enter Roll Number">
+          <div class="input-group-append">
+            <button class="btn btn-success" type="submit" data-toggle="modal" data-target="#leave_details" onclick="disable_back()">Go</button> 
+         </div>
+      </div>
+      </div>
+
+      <!-- Modal -->
+      <div class="modal fade" id="leave_details" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">Leave Outpass</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="form-row">
+                <input class="lg-6" type="text" name="roll" placeholder="Roll Number" disabled="">
+                <input class="lg-6" type="text" name="name" placeholder="Name" disabled="">
+              </div>
+              <div class="form-row">
+                <input class="lg-6" type="text" name="Hostel" placeholder="Hostel" disabled="">
+                <input class="lg-6" type="text" name="Room" placeholder="Room Number" disabled="">
+              </div>
+              <div class="form-row">
+                <input class="lg-6" type="text" name="ticket" placeholder="Ticket Number" disabled="">
+                <input class="lg-6" type="text" name="mode" placeholder="Mode of Travel" disabled="">
+              </div>
+              <div class="form-row">
+                <input class="lg-6" type="text" name="destination" placeholder="Destination" disabled="">
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-info" data-dismiss="modal">Departure</button>
+              <button type="button" class="btn btn-warning" data-dismiss="modal">Return</button>
+            </div>
+          </div>
+        </div>
+      </div>
 
 
     </div>
