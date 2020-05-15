@@ -1,0 +1,2 @@
+*.css linguist-detectable=false
+*.node js linguist-detectable=true
