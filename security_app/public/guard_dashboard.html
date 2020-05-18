@@ -54,7 +54,7 @@
 
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                User
+              GUARD
               </a>
               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
 
@@ -98,7 +98,7 @@
       </div>
 
       <!-- Modal -->
-      <div class="modal fade" id="leave_details" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal fade" id="leave_details" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="display: none">
         <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content">
             <div class="modal-header">
@@ -109,24 +109,28 @@
             </div>
             <div class="modal-body">
               <div class="form-row">
-                <input class="lg-6" type="text" name="roll" placeholder="Roll Number" disabled="">
-                <input class="lg-6" type="text" name="name" placeholder="Name" disabled="">
+                <input class="lg-6" type="text" id="roll" name="roll" placeholder="Roll Number" disabled="">
+                <input class="lg-6" type="text" id="name" name="name" placeholder="Name" disabled="">
               </div>
               <div class="form-row">
-                <input class="lg-6" type="text" name="Hostel" placeholder="Hostel" disabled="">
-                <input class="lg-6" type="text" name="Room" placeholder="Room Number" disabled="">
+                <input class="lg-6" type="text" id="Hostel" name="Hostel" placeholder="Hostel" disabled="">
+                <input class="lg-6" type="text" id="Room" name="Room" placeholder="Room Number" disabled="">
               </div>
               <div class="form-row">
-                <input class="lg-6" type="text" name="ticket" placeholder="Ticket Number" disabled="">
-                <input class="lg-6" type="text" name="mode" placeholder="Mode of Travel" disabled="">
+                <input class="lg-6" type="text" id="ticket" name="ticket" placeholder="Ticket Number" disabled="">
+                <input class="lg-6" type="text" name="mode" id="mode" placeholder="Mode of Travel" disabled="">
               </div>
               <div class="form-row">
-                <input class="lg-6" type="text" name="destination" placeholder="Destination" disabled="">
+                <input class="lg-6" type="text" name="destination" id="destination" placeholder="Destination" disabled="">
+                 <input class="lg-6" type="text" name="warden_status" id="warden_status" placeholder="Warden status" disabled="">
+              </div>
+              <div class="form-row">
+                <input class="lg-6" type="Date" name="date" id="date" placeholder="Date" disabled="">
               </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-info" data-dismiss="modal">Departure</button>
-              <button type="button" class="btn btn-warning" data-dismiss="modal">Return</button>
+              <button type="button" class="btn btn-info" id="dep_button" data-dismiss="modal">Departure</button>
+              <button type="button" class="btn btn-warning" id="ret_button" data-dismiss="modal">Return</button>
             </div>
           </div>
         </div>

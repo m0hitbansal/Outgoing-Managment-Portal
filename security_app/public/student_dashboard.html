@@ -60,7 +60,7 @@
                 User
               </a>
               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#" onclick="prof('existing_profile')">Profile</a>
+                <a class="dropdown-item" href="#" onclick="showup('existing_profile')">Profile</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#" onclick="my_signout()">Signout</a>
               </div>
@@ -79,17 +79,43 @@
         <h3>Request Leave</h3>
         <h4>Kindly fill the leave request form</h4>
         <fieldset>
+           <label for="roll">Roll NUmber:</label>
           <input placeholder="Roll number :" type="text" tabindex="1" id="roll" name="roll" required autofocus >
         </fieldset>
         <fieldset>
-          <input placeholder="Guardian's Contact :" type="text" tabindex="2" id="gdnphn" name="gdnphn" required autofocus>
+           <label for="stud_name">Name:</label>
+          <input placeholder="Name:" type="text" tabindex="2" id="stud_name" name="stud_name" required autofocus >
+        </fieldset>
+        <fieldset>
+             <label for="stud_hostel">Hostel:</label>
+          <input placeholder="Hostel:" type="text" tabindex="3" id="stud_hostel" name="stud_hostel" required autofocus >
+        </fieldset>
+        <fieldset>
+          <label for="stud_room">Room Number:</label>
+          <input placeholder="Room Number:" type="text" tabindex="4" id="stud_room" name="stud_room" required autofocus >
+        </fieldset>
+        <fieldset>
+          <label for="stud_tkt">Ticket Number:</label>
+          <input placeholder="Ticket Number:" type="text" tabindex="5" id="stud_tkt" name="stud_tkt" required autofocus >
+        </fieldset>
+         <fieldset>
+          <label for="stud_mod">Mode of Travel:</label>
+          <input placeholder="Mode of Travel:" type="text" tabindex="6" id="stud_mod" name="stud_mod" required autofocus >
+        </fieldset>
+         <fieldset>
+          <label for="stud_dest">Destination:</label>
+          <input placeholder="Destination:" type="text" tabindex="7" id="stud_dest" name="stud_dest" required autofocus >
+        </fieldset>
+        <fieldset>
+           <label for="gdnphn">Guardian's contact:</label>
+          <input placeholder="Guardian's Contact :" type="text" tabindex="8" id="gdnphn" name="gdnphn" required autofocus>
         </fieldset>
         <fieldset>
           <label for="depdate">Departure date from college:</label>
           <input type="date" id="depdate" name="depdate" value="yyyy-mm-dd" min="2020-01-01" max="2030-12-31">
         </fieldset>
         <fieldset>
-          <textarea placeholder="Reason for leave :" tabindex="3" id="rsn" name="rsn"></textarea>
+          <textarea placeholder="Reason for leave :" tabindex="9" id="rsn" name="rsn"></textarea>
         </fieldset>
         <fieldset>
           <button name="submit" type="submit" id="contact-submit" data-submit="...Sending">Send</button>

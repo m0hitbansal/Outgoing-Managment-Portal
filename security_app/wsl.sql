@@ -29,7 +29,7 @@ ON DELETE CASCADE
 )ENGINE=MyISAM  DEFAULT CHARSET=latin1;
 
 insert into Student values('MT2019026','archit semwal','archit.semwal@iiitb.org',3232323232,'Bhaskara',470,'semwal@gmail.com');
-insert into Student values('MT20190100','shashank agarwal','shashank.agarwal@iiitb.org',9149266884,'Bhaskara',747,'agarwal@gmail.com');
+insert into Student values('MT2019100','shashank agarwal','shashank.agarwal@iiitb.org',9149266884,'Bhaskara',747,'agarwal@gmail.com');
 insert into Student values('MT2019048','mohit bansal','mohit.bansal@iiitb.org',8585858585,'Bhaskara',628,'bansal@gmail.com');
 
 
@@ -37,9 +37,14 @@ insert into Student values('MT2019048','mohit bansal','mohit.bansal@iiitb.org',8
 CREATE TABLE IF NOT EXISTS Apply_Leave(
 id int(255) NOT NULL AUTO_INCREMENT,
 roll_no varchar(255) NOT NULL,
-parents_contact varchar(255) NOT NULL,
-departure DATETIME NOT NULL,
+destination varchar(255) NOT NULL,
+mode_travel varchar(255) NOT NULL,
+ticket_no varchar(255) NOT NULL,
 reason varchar(3000) NOT NULL,
+parents_contact bigint NOT NULL,
+departure DATETIME NOT NULL,
+entry_time DATETIME,
+exit_time DATETIME,
 status varchar(200) NOT NULL,
 PRIMARY KEY (id),
 CONSTRAINT fk_roll FOREIGN KEY (roll_no) REFERENCES Student(roll_no)
@@ -53,20 +58,6 @@ entry_time DATETIME,
 exit_time DATETIME,
 PRIMARY KEY (id),
 CONSTRAINT fk_roll1 FOREIGN KEY (roll_no) REFERENCES Student(roll_no)
-ON DELETE CASCADE
-)ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
-
-CREATE TABLE IF NOT EXISTS Leave_Home(
-id int(255) NOT NULL AUTO_INCREMENT,
-roll_no varchar(255) NOT NULL,
-address varchar(255) NOT NULL,
-transport varchar(255) NOT NULL,
-pnr_no varchar(255) NOT NULL,
-status varchar(200) NOT NULL,
-entry_time DATETIME,
-exit_time DATETIME,
-PRIMARY KEY (id),
-CONSTRAINT fk_roll2 FOREIGN KEY (roll_no) REFERENCES Student(roll_no)
 ON DELETE CASCADE
 )ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
 
