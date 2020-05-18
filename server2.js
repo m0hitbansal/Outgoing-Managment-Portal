@@ -60,10 +60,10 @@ app.use(cors({origin: 'http://localhost:5555'}));
 var sess;
 
 var connection = mysql.createConnection({
-	  host: "localhost",
-	  user: "shashank",
-	  password: "shashank",
-	  database: "Outgoing"
+	   host:process.env.DATABASE_HOST,
+          user: 'root',
+          password:'root',
+          database:'Outgoing'
 	});
 connection.connect(function(err) {
 	  if (err) throw err

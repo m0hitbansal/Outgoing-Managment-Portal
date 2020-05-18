@@ -1,5 +1,3 @@
-create database Outgoing;
-use Outgoing;
 
 CREATE TABLE IF NOT EXISTS Login(
 id int(200) NOT NULL AUTO_INCREMENT,
