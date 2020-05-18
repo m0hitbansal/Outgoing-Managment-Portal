@@ -19,8 +19,8 @@ console.log(d);
 let transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-      user: 'bmohit0985@gmail.com',
-      pass: '9414989746@m'
+      user: 'rathore.rs.sameer@gmail.com',
+      pass: '8868091709@s'
     }
 });
 function sendmail(mailOptions){
@@ -61,8 +61,8 @@ var sess;
 
 var connection = mysql.createConnection({
 	  host: "localhost",
-	  user: "mohit",
-	  password: "",
+	  user: "shashank",
+	  password: "shashank",
 	  database: "Outgoing"
 	});
 connection.connect(function(err) {
@@ -99,6 +99,14 @@ app.route('/checkrole')
 				sess = req.session;
 				sess.email=req.body.email;
 				if(result[0].role=='student'){
+					var p="SELECT roll_no FROM Student WHERE email = ?";
+					connection.query(p,[sess.email], function(err,result1){
+						if(err){res.end(err);}
+						else{
+							sess.roll_no=result1[0]['roll_no'];
+							console.log('roll_number = '+sess.roll_no);
+						}
+					});
 				res.set('Content-Type', 'text/html')
    				res.sendFile(__dirname + '/public/student_dashboard.html');
    				}
@@ -121,30 +129,14 @@ app.route('/checkrole')
 			
 });
 
-app.route('/userData')
-	.post((req, res) => {
-	var q = "SELECT * from Student WHERE  email = ?";
-	connection.query(q, [sess.email], function (err, result) {
-		if (err){
-			res.end(err);
-		} 
-		else {
-			console.log('user data picked up');
-			console.log(result);
-			res.json(result);
-		}
-	});
-});
-
-
 app.get('/getdetails', function (req, res) {
-	var q = "SELECT roll_no, name from Student WHERE  email = ?";
-	connection.query(q, [sess.email], function (err, result) {
+	var q = "SELECT * from Student WHERE  roll_no = ?";
+	connection.query(q, [sess.roll_no], function (err, result) {
 		if (err){
 			res.end(err);
 		} 
 		else {
-			console.log('roll number picked up');
+			console.log('all details picked up picked up for this student');
 			console.log(result);
 				res.send(result);
 		}
@@ -164,6 +156,8 @@ app.get('/getLeaves', function (req, res) {
 		}
 	});
 });	
+
+	
 
 app.post('/userdetails', function (req, res) {
 	console.log(req.body.roll);
@@ -197,19 +191,22 @@ app.post('/request_leave', function (req, res) {
 
 	var resn=req.body.rsn;
 	var status="0";
+	var dest= req.body.stud_dest;
+	var md_travel=req.body.stud_mod;
+	var tkt_no=req.body.stud_tkt;
 	console.log(roll_number);
 	console.log(parent);
 	console.log(depart);
 	console.log(resn);
-	var q = "INSERT INTO Apply_Leave (roll_no,parents_contact,departure,reason,status) VALUES(?,?,?,?,?)";
+	var q = "INSERT INTO Apply_Leave (roll_no,destination,mode_travel,ticket_no,reason,parents_contact,departure,status) VALUES(?,?,?,?,?,?,?,?)";
 	console.log("into add_link");
-	connection.query(q, [roll_number,parent,depart,resn,status], function (err, result) {
+	connection.query(q, [roll_number,dest,md_travel,tkt_no,resn,parent,depart,status], function (err, result) {
 		if (err){
 
-			console.log("nahi gaya");
+			console.log("problem in inserting leave info");
 		} 
 		else {
-			console.log("link inserted");
+			console.log("leave info inserted");
 		}
 	});
 	res.set('Content-Type', 'text/html')
@@ -344,6 +341,70 @@ app.post('/localcheckin', function (req, res) {
 	});
 });
 
+app.post('/Guard_fetch_leave', function (req, res) {
+	console.log(req.body.rollno);
+	var q = "SELECT roll_no,MAX(id) as id from Apply_Leave where roll_no= ? GROUP BY roll_no";
+	connection.query(q, [req.body.rollno], function (err, result) {
+		if (err){
+			res.end(err);
+		} 
+		else {
+			
+			 var q = "SELECT * from Apply_Leave where id= ? and entry_time IS NULL ";
+				connection.query(q, [result[0]['id']], function (err, result1) {
+					if (err){
+						res.end(err);
+					}
+					else{
+					if(result1.length>0)
+						{
+				res.send(result1);
+						}
+						else{
+				console.log("i am he");
+				res.sendStatus(404);
+					}
+					}
+			});		
+		}
+	});
+});
+
+app.post('/home_checkout', function (req, res) {
+	console.log(req.body.id);
+	var date= new Date();
+	var exittime=date.toISOString().split('T')[0] + ' '  
+                        + date.toTimeString().split(' ')[0]; 
+	console.log(exittime);
+	var q = "UPDATE Apply_Leave SET exit_time = ? where id =?";
+	console.log("into home check out");
+	connection.query(q, [exittime,req.body.id], function (err, result) {
+		if (err){
+			res.end(err);
+		} 
+		else {
+			res.send("done");
+		}
+	});
+});
+
+app.post('/home_checkin', function (req, res) {
+	console.log(req.body.id);
+	var date= new Date();
+	var entrytime=date.toISOString().split('T')[0] + ' '  
+                        + date.toTimeString().split(' ')[0]; 
+	console.log(entrytime);
+	var q = "UPDATE Apply_Leave SET entry_time = ? where id =?";
+	console.log("into home check in");
+	connection.query(q, [entrytime,req.body.id], function (err, result) {
+		if (err){
+			res.end(err);
+		} 
+		else {
+			res.send("done");
+		}
+	});
+});
 // app.post('/insert_details', function (req, res) {
 // 		console.log('Inside insert function');
 

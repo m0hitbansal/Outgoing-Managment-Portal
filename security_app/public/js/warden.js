@@ -38,8 +38,12 @@ $.ajax({
                 str+='<label for="roll">Roll Number : </label><input type="text"  tabindex="1" value="'+data[i]['roll_no']+'" disabled></fieldset>';
                 str+='<fieldset><label for="hostel">Hostel : </label><input type="text" tabindex="2" value="'+hostel+'" disabled></fieldset>';
                 str+='<fieldset><label for="room">Room Number : </label><input type="number"  tabindex="3" value="'+room+'" disabled></fieldset>';
-                str+='<fieldset><label for="date">Departure Date : </label><input type="date"  tabindex="4" value="'+date+'" disabled></fieldset>';
-                str+='<fieldset><label for="reason">Reason for Leave : </label><textarea  tabindex="5"  disabled>'+data[i]['reason']+'</textarea></fieldset>';
+                str+='<fieldset><label for="room">Ticket Number : </label><input type="text"  tabindex="4" value="'+data[i]['ticket_no']+'" disabled></fieldset>';
+                str+='<fieldset><label for="room">Mode of Travel : </label><input type="text"  tabindex="5" value="'+data[i]['mode_travel']+'" disabled></fieldset>';
+                str+='<fieldset><label for="room">Destination : </label><input type="text"  tabindex="6" value="'+data[i]['destination']+'" disabled></fieldset>';
+                str+='<fieldset><label for="room">Guardian conatct : </label><input type="number"  tabindex="7" value="'+data[i]['parents_contact']+'" disabled></fieldset>';
+                str+='<fieldset><label for="date">Departure Date : </label><input type="date"  tabindex="8" value="'+date+'" disabled></fieldset>';
+                str+='<fieldset><label for="reason">Reason for Leave : </label><textarea  tabindex="9"  disabled>'+data[i]['reason']+'</textarea></fieldset>';
                 str+='<a id="yesbtn" class="vanish1 btn btn-info waves-effect waves-light" onclick="allow('+data[i]['id']+')">Allow</a><a id="nobtn" class="vanish2 btn btn-outline-info waves-effect" onclick="reject('+data[i]['id']+')">Reject</a></div></li>';
            $('#showRequest').append(str);
 
