@@ -63,7 +63,7 @@ var connection = mysql.createConnection({
 	   host:process.env.DATABASE_HOST,
           user: 'root',
           password:'root',
-          database:'outgoing'
+          database:'Outgoing'
 	});
 connection.connect(function(err) {
 	  if (err) throw err
