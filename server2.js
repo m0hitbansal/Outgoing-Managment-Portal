@@ -63,7 +63,7 @@ var connection = mysql.createConnection({
 	   host:process.env.DATABASE_HOST,
           user: 'root',
           password:'root',
-          database:'Outgoing'
+          database:'outgoing'
 	});
 connection.connect(function(err) {
 	  if (err) throw err
@@ -349,23 +349,27 @@ app.post('/Guard_fetch_leave', function (req, res) {
 			res.end(err);
 		} 
 		else {
-			
-			 var q = "SELECT * from Apply_Leave where id= ? and entry_time IS NULL ";
-				connection.query(q, [result[0]['id']], function (err, result1) {
-					if (err){
-						res.end(err);
-					}
-					else{
-					if(result1.length>0)
-						{
-				res.send(result1);
+			if(result.length>0){
+				 var q = "SELECT * from Apply_Leave where id= ? and entry_time IS NULL ";
+					connection.query(q, [result[0]['id']], function (err, result1) {
+						if (err){
+							res.end(err);
 						}
 						else{
-				console.log("i am he");
+						if(result1.length>0)
+							{
+					res.send(result1);
+							}
+							else{
+						console.log("i am he");
+						res.sendStatus(404);
+						}
+					}
+				});	
+			}
+			else{
 				res.sendStatus(404);
-					}
-					}
-			});		
+			}	
 		}
 	});
 });

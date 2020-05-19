@@ -82,12 +82,13 @@ $.ajax({
                 document.getElementById("dep_button").onclick=function(){home_out(data[0]['id'])};
                 document.getElementById("ret_button").onclick=function(){home_in(data[0]['id'])};
                 $("#enter_roll").val("");
-              //  $("#leave_details").modal({backdrop: 'static', keyboard: false}) ;  
+                $("#leave_details").show();
+                $("#leave_details").modal({backdrop: 'static', keyboard: false}) ;  
            },
        error: function (request, status) {
         alert("Request Leave not found");
-        $('#entry_roll').val('');
-         $("#leave_details").fadeOut();
+        $("#enter_roll").val("");
+        //$("#leave_details").fadeOut();
     }
            
         });
@@ -95,8 +96,8 @@ $.ajax({
  },
  error: function (request, status) {
         alert("Roll Number not found");
-        $('#entry_roll').val('');
-         $("#leave_details").fadeOut();
+        $("#enter_roll").val("");
+        //$("#leave_details").fadeOut();
     }
 });
 }
