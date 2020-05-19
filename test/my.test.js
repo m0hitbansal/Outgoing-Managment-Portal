@@ -1,7 +1,7 @@
 let chai = require('chai');
 let chaiHttp = require('chai-http');
 let expect=chai.expect;
-let server = require('../server2');
+let server = require('../server');
 let assert=require('chai').assert;
 chai.use(chaiHttp);
  // afterAll(done => {
