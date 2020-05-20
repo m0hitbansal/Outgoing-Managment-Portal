@@ -1,5 +1,5 @@
 /*Leave form*/
-
+  .col input,
   #contact input[type="text"],
   #contact input[type="email"],
   #contact input[type="tel"],
@@ -41,6 +41,7 @@
     width: 100%;
   }
 
+  .col input,
   #contact input[type="text"],
   #contact input[type="email"],
   #contact input[type="tel"],
@@ -53,6 +54,7 @@
     padding: 10px;
   }
 
+    .col input,
     #contact input[type="text"]:hover,
     #contact input[type="email"]:hover,
     #contact input[type="tel"]:hover,

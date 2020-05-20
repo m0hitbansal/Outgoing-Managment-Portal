@@ -5,6 +5,9 @@ function hideall(){
       stud_details.style.display="none";
       leave_outpass.style.display="none";
       leave_details.style.display="none";
+      visitor_search.style.display="none";
+      visitor_form.style.display="none";
+      // parking.style.display="none";
        $('#entry').val('');
 }
 function showup(id) {
@@ -162,6 +165,15 @@ function showdetails(){
   });
  
 }
+
+// function to show visitor form
+function showvisitorform(id)
+{
+var x=document.getElementById(id);
+x.style.display="block";
+}
+
+
 function IN(id){
   $.ajax({
    method: "POST",
