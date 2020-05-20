@@ -10,11 +10,10 @@ var myModule = require('./public/scripts/script');
 var cors = require('cors');
 const multer = require('multer');
 app.use(express.static(path.join(__dirname, 'public')))
- let cron = require('node-cron');
- let nodemailer = require('nodemailer');
-var d=new Date();
-console.log(d);
-
+let cron = require('node-cron');
+let nodemailer = require('nodemailer');
+const Nexmo = require('nexmo');
+var parking_array = new Array(51).fill(0);
 // e-mail transport configuration
 let transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -150,7 +149,7 @@ app.route('/checkrole')
    				res.sendFile(__dirname + '/public/warden_dashboard.html');
    			}
    			else if(result[0].role=='guard'){
-   				console.log('warden has logged in');
+   				console.log('guard has logged in');
 				res.set('Content-Type', 'text/html')
    				res.sendFile(__dirname + '/public/guard_dashboard.html');
    				}
@@ -214,6 +213,24 @@ app.post('/userdetails', function (req, res) {
 		}	
 	});
 });	
+
+// check leave request can happen or not
+app.post('/checkleave',function(req,res){
+	var q = "SELECT roll_no,MAX(id) as id from Apply_Leave where roll_no= ? and entry_time IS NULL GROUP BY roll_no";
+	connection.query(q, [req.body.roll], function (err, result) {
+		if (err){
+			res.end(err);
+		}
+		else{
+			if(result.length){
+				res.send("no");
+			}
+			else{
+                res.send("yes");
+			}	 
+		}
+	});
+});
 
 // Apply leave for this student
 app.post('/request_leave', function (req, res) {
@@ -353,7 +370,7 @@ app.post('/localcheckout', function (req, res) {
 	});
 });
 
-
+//check in college function
 app.post('/localcheckin', function (req, res) {
 	var date= new Date();
 	var entrytime=date.toISOString().split('T')[0] + ' '  
@@ -371,6 +388,7 @@ app.post('/localcheckin', function (req, res) {
 	});
 });
 
+//fetch leave details of student on guard
 app.post('/Guard_fetch_leave', function (req, res) {
 	console.log('guard fetch the leave request of student');
 	var q = "SELECT roll_no,MAX(id) as id from Apply_Leave where roll_no= ? GROUP BY roll_no";
@@ -462,6 +480,7 @@ app.post('/home_checkin', function (req, res) {
 				        subject: 'Your Ward has arrived college',
 				        text: 'Dear Parent, Your ward '+ result[0]['name']+', has arrived in college. Please be informed.'
 					};
+					
 					sendmail(mailOptions);
 					res.end();
 				}
@@ -470,6 +489,138 @@ app.post('/home_checkin', function (req, res) {
 		}
 	});
 });
+
+//fetch all parking slot which is fill
+function parkingnumber(){
+	var q = "SELECT parking_no from Visitor WHERE exit_time IS NULL";
+	connection.query(q, function (err, result) {
+		if (err){
+			
+		} 
+		else {
+			if(result.length){
+				for(let i=0;i<result.length;i++){
+					parking_array[result[i]['parking_no']]=1;
+				}
+			}
+			
+		}
+	});
+}
+//one time function run when server run
+parkingnumber();
+app.get('/fetchparking_no', function (req, res) {
+	var parking_slot=0;
+	for(let i=1;i<50;i++){
+		if(parking_array[i]==0){
+			parking_slot=i;
+			break;
+		}
+	}
+	res.send(parking_slot.toString());
+});
+
+//visitor entry function
+app.post('/visitorentry', function (req, res) {
+	
+	var visitor_id='visitor_';
+	var parking_slot=Number(req.body.parking);
+	var vehicle_no=req.body.vehicle;
+	var name=req.body.name;
+	var email=req.body.email;
+	var reason=req.body.reason;
+	var date= new Date();
+	var entrytime=date.toISOString().split('T')[0] + ' '  
+                        + date.toTimeString().split(' ')[0]; 
+    parking_array[parking_slot]=1;
+    var q="select max(id) as id from Visitor";
+    connection.query(q, function (err, result){
+    	if(result[0]['id']==null){
+    		visitor_id=visitor_id+'1';
+    	}
+    	else{
+    		visitor_id=visitor_id+(result[0]['id']+1).toString();
+    	}
+	    var q = "INSERT INTO Visitor (visitor_id,name,email,parking_no,vehicle_no,reason,entry_time) VALUES(?,?,?,?,?,?,?)";
+		connection.query(q, [visitor_id,name,email,parking_slot,vehicle_no,reason,entrytime], function (err, result1) {
+			if (err){
+				res.end(err);
+			} 
+			else {
+				var text= 'hello '+name+',\n'+'Your visiting id  :'+visitor_id+'\n'+'Your parking no  :'+parking_slot;
+				
+				let mailOptions = {
+	        		from: 'rathore.rs.sameer@gmail.com',
+			        to: email ,
+			        subject: 'Your visiting entry details',
+			        text: text
+				};
+				sendmail(mailOptions);
+				console.log("visitor successfully enter");
+				res.send("done");
+			}
+		});	
+	});                    
+	
+});
+
+//visitor exit function
+app.post('/visitorexit', function (req, res) {
+	var visitor=req.body.visitor;
+	var date= new Date();
+	var exittime=date.toISOString().split('T')[0] + ' '  
+                        + date.toTimeString().split(' ')[0]; 
+    var q="select parking_no from Visitor where visitor_id = ?";
+    connection.query(q,[visitor], function (err, result){
+    	if(result.length){
+    		parking_array[result[0]['parking_no']]=0;
+    		var q = "UPDATE Visitor SET exit_time = ? where visitor_id = ?";
+    		connection.query(q,[exittime,visitor], function (err, result1){
+    			console.log("visitor successfully exit");
+    			res.send("done");
+    		});
+    	}
+    	else{
+    		res.sendStatus(404);
+    	}  
+	});                    	
+});
+
+// function sendsms(text,number){
+// 	const nexmo = new Nexmo({
+// 	  apiKey: 'd2493ae3',
+// 	  apiSecret: 'J69JI8g9FBgO3z6k',
+// 	});
+// 	console.log(text);
+// 	console.log(number);
+// 	// nexmo.message.sendSms("Nexmo","917060747896", text, {
+// 	//    		type: "unicode"
+//  //        }, (err, responseData) => {
+// 	//     if (err) {
+// 	//     	console.log(err);
+// 	//     } 
+// 	//     else {
+// 	// 	    if (responseData.messages[0]['status'] === "0") {
+// 	// 	    	console.log("Message sent successfully.");
+// 	// 	    } 
+// 	// 	    else {
+// 	// 	    	console.log(`Message failed with error: ${responseData.messages[0]['error-text']}`);
+// 	// 	    }
+// 	// 	  }
+// 	// });
+	
+// 	 nexmo.message.sendSms(
+//     '917060747896', number, text, {type: 'unicode'},
+//     (err, responseData) => {
+//       if (err) {
+//         console.log(err);
+//       } else {
+//         console.dir(responseData);
+//         // Optional: add socket.io -- will explain later
+//       }
+//     }
+//   );
+// }
 
 var server = app.listen(5555, function () {
     console.log('Node server is running..');
