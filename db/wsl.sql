@@ -26,9 +26,9 @@ CONSTRAINT fk_email FOREIGN KEY (email) REFERENCES Login(email)
 ON DELETE CASCADE
 )ENGINE=MyISAM  DEFAULT CHARSET=latin1;
 
-insert into Student values('MT2019026','archit semwal','archit.semwal@iiitb.org',3232323232,'Bhaskara',470,'semwal@gmail.com');
-insert into Student values('MT2019100','shashank agarwal','shashank.agarwal@iiitb.org',9149266884,'Bhaskara',747,'agarwal@gmail.com');
-insert into Student values('MT2019048','mohit bansal','mohit.bansal@iiitb.org',8585858585,'Bhaskara',628,'bansal@gmail.com');
+insert into Student values('MT2019026','archit semwal','archit.semwal@iiitb.org',3232323232,'Bhaskara',470,'archit.semwal@iiitb.org');
+insert into Student values('MT2019100','shashank agarwal','shashank.agarwal@iiitb.org',9149266884,'Bhaskara',747,'shashank.agarwal@iiitb.org');
+insert into Student values('MT2019048','mohit bansal','mohit.bansal@iiitb.org',8585858585,'Bhaskara',628,'mohit.bansal@iiitb.org');
 
 
 
@@ -65,6 +65,7 @@ id int(200) NOT NULL AUTO_INCREMENT,
 name varchar(255) NOT NULL,
 entry_time DATETIME,
 exit_time DATETIME,
+
 parking_no int(255) NOT NULL,
 vehicle_no varchar(200) NOT NULL,
 PRIMARY KEY (id)
