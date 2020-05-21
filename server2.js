@@ -391,8 +391,13 @@ app.post('/localcheckin', function (req, res) {
 //fetch leave details of student on guard
 app.post('/Guard_fetch_leave', function (req, res) {
 	console.log('guard fetch the leave request of student');
-	var q = "SELECT roll_no,MAX(id) as id from Apply_Leave where roll_no= ? GROUP BY roll_no";
-	connection.query(q, [req.body.rollno], function (err, result) {
+	var depart=new Date(req.body.depdate);
+	depart= depart.toISOString().split('T')[0] + ' '  
+                        + depart.toTimeString().split(' ')[0];
+
+                        console.log(depart);
+	var q = "SELECT roll_no,MAX(id) as id from Apply_Leave where roll_no= ? and departure = ? GROUP BY roll_no";
+	connection.query(q, [req.body.rollno,depart], function (err, result) {
 		if (err){
 			res.end(err);
 		} 

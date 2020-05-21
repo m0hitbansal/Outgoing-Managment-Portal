@@ -41,7 +41,10 @@ function disable_back(){
       $.ajax({
         method: "POST",
         url: "/Guard_fetch_leave",
-        data: {rollno: result[0]['roll_no']},
+        data: {
+          rollno: result[0]['roll_no'],
+          depdate: (new Date().toISOString().split('T')[0]).slice(0,10)
+          },
         success:function( data ) {
           var date=new Date(data[0]['departure']);
           date= date.toISOString().split('T')[0] + ' '  
@@ -197,7 +200,9 @@ function visitor_exit(){
     data: {visitor:visitor_id},
     success: function(data){
       $('#visitorid').val('');
-      alert("exit success fully");
+	 hideall();
+        homepage.style.display="block";
+      alert("Visitor exit successfully");
     },
     error: function (request, status) {
       $('#visitorid').val('');
@@ -227,7 +232,7 @@ function visitor_entry(){
       success:function( result ) {
         hideall();
         homepage.style.display="block";
-        alert("entry");
+        alert("Visitor recorded successfully");
       }
     });
   }  
