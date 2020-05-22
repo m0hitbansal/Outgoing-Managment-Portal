@@ -1,0 +1,8 @@
+{"message":{"index":{"index":"Outgoing","_id":2},"level":"info","message":""},"level":"info","timestamp":"2020-05-22T05:34:32.832Z"}
+{"message":{"type":"api-call","call_name":"/checkrole","method":"POST","text_entry":"Student login Mohit.Bansal@iiitb.org"},"level":"info","timestamp":"2020-05-22T05:34:32.843Z"}
+{"message":{"index":{"index":"Outgoing","_id":3},"level":"info","message":""},"level":"info","timestamp":"2020-05-22T05:34:33.393Z"}
+{"message":{"type":"api-call","call_name":"/getdetails","method":"GET","text_entry":"Get student details ofmohit bansal"},"level":"info","timestamp":"2020-05-22T05:34:33.395Z"}
+{"message":{"index":{"index":"Outgoing","_id":2},"level":"info","message":""},"level":"info","timestamp":"2020-05-22 11:07:51"}
+{"message":{"type":"api-call","call_name":"/checkrole","method":"POST","text_entry":"Guard login"},"level":"info","timestamp":"2020-05-22 11:07:51"}
+{"message":{"index":{"index":"Outgoing","_id":3},"level":"info","message":""},"level":"info","timestamp":"2020-05-22 11:22:19"}
+{"message":{"type":"api-call","call_name":"/localcheckout","method":"POST","text_entry":"MT2019100 is local out"},"level":"info","timestamp":"2020-05-22 11:22:19"}

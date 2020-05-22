@@ -200,7 +200,7 @@ function visitor_exit(){
     data: {visitor:visitor_id},
     success: function(data){
       $('#visitorid').val('');
-	 hideall();
+   hideall();
         homepage.style.display="block";
       alert("Visitor exit successfully");
     },
@@ -237,5 +237,3 @@ function visitor_entry(){
     });
   }  
 }
-
-

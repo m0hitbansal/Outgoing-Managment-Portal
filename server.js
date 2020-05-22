@@ -14,6 +14,7 @@ let cron = require('node-cron');
 let nodemailer = require('nodemailer');
 const Nexmo = require('nexmo');
 var parking_array = new Array(51).fill(0);
+var id = 1;
 // e-mail transport configuration
 let transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -140,16 +141,20 @@ app.route('/checkrole')
 							console.log('student has logged in');
 						}
 					});
+                    
+					logstore('/checkrole','POST','Student login '+email);
 				res.set('Content-Type', 'text/html')
    				res.sendFile(__dirname + '/public/student_dashboard.html');
    				}
    			else if(result[0].role=='warden'){
    				console.log('warden has logged in');
+   				logstore('/checkrole','POST','warden login');
 				res.set('Content-Type', 'text/html')
    				res.sendFile(__dirname + '/public/warden_dashboard.html');
    			}
    			else if(result[0].role=='guard'){
    				console.log('guard has logged in');
+   				logstore('/checkrole','POST','Guard login');
 				res.set('Content-Type', 'text/html')
    				res.sendFile(__dirname + '/public/guard_dashboard.html');
    				}
@@ -157,6 +162,7 @@ app.route('/checkrole')
 			else
 				{
 					console.log('user not found');
+					logstore('/checkrole','POST','user not found login ');
 				res.set('Content-Type', 'text/html')
 			    res.sendFile(__dirname + '/public/index.html');	
 			}
@@ -173,6 +179,7 @@ app.get('/getdetails', function (req, res) {
 			res.end(err);
 		} 
 		else {
+			logstore('/getdetails','GET','Get student details of'+ result[0]['name']);
 			console.log('all details picked up picked up for this student');
 				res.send(result);
 		}
@@ -187,6 +194,7 @@ app.get('/getLeaves', function (req, res) {
 			res.end(err);
 		} 
 		else {
+			logstore('/getLeaves','GET','Fetch all leaves which status is 0');
 			console.log('All applied leaves are picked up');
 			res.send(result);
 		}
@@ -253,9 +261,11 @@ app.post('/request_leave', function (req, res) {
 			console.log("problem in inserting leave info");
 		} 
 		else {
+
 			console.log("leave info inserted successfully");
 		}
 	});
+	logstore('/request_leave','POST','Insert Leave application in database');
 	res.set('Content-Type', 'text/html')
 	res.sendFile(__dirname + '/public/student_dashboard.html');
 });
@@ -282,6 +292,7 @@ app.post('/allow_leave', function (req, res) {
 				        text: 'Dear '+ result[0]['name']+',\n you can go on leave.'
 					};
 					sendmail(mailOptions);
+					logstore('/allow_leave','POST','Leave grnated by warden');
 					res.end();
 				}
 			});
@@ -311,6 +322,7 @@ app.post('/reject_leave', function (req, res) {
 				        text: 'Dear '+ result[0]['name']+',\n Sorry , You can not go on leave.'
 					};
 					sendmail(mailOptions);
+					logstore('/allow_leave','POST','Leave rejected by warden');
 					res.end();
 				}
 			});
@@ -365,6 +377,7 @@ app.post('/localcheckout', function (req, res) {
 			res.end(err);
 		} 
 		else {
+			logstore('/localcheckout','POST',req.body.roll+' is local out');
 			res.send("done");
 		}
 	});
@@ -383,6 +396,7 @@ app.post('/localcheckin', function (req, res) {
 			res.end(err);
 		} 
 		else {
+			logstore('/localcheckin','POST',req.body.roll+' is local in');
 			res.send("done");
 		}
 	});
@@ -410,6 +424,7 @@ app.post('/Guard_fetch_leave', function (req, res) {
 					}
 					else{
 						if(result1.length>0){
+							logstore('/Guard_fetch_leave','POST','Guard fetch leave details of'+req.body.rolls);
 							res.send(result1);
 						}
 						else{
@@ -453,6 +468,7 @@ app.post('/home_checkout', function (req, res) {
 				        text: 'Dear Parent, Your ward '+ result[0]['name']+', has left for home. Please be informed.'
 					};
 					sendmail(mailOptions);
+					logstore('/home_checkout','POST', result[0]['name']+' is home out');
 					res.end();
 				}
 			});
@@ -487,6 +503,7 @@ app.post('/home_checkin', function (req, res) {
 					};
 					
 					sendmail(mailOptions);
+					logstore('/home_checkin','POST', result[0]['name']+' is home in');
 					res.end();
 				}
 			});
@@ -561,6 +578,7 @@ app.post('/visitorentry', function (req, res) {
 			        text: text
 				};
 				sendmail(mailOptions);
+				logstore('/visitorentry','POST', visitor_id+' is Enter');
 				console.log("visitor successfully enter");
 				res.send("done");
 			}
@@ -582,6 +600,7 @@ app.post('/visitorexit', function (req, res) {
     		var q = "UPDATE Visitor SET exit_time = ? where visitor_id = ?";
     		connection.query(q,[exittime,visitor], function (err, result1){
     			console.log("visitor successfully exit");
+    			logstore('/visitorexit','POST', visitor+' is Exit');
     			res.send("done");
     		});
     	}
@@ -632,4 +651,33 @@ var server = app.listen(5555, function () {
     console.log('Browser to http://127.0.0.1: 5555');
 });
 
+const winston = require('winston');
+const Elasticsearch = require('winston-elasticsearch');
+var esTransportOpts = {
+  level: 'info'
+};
+const logger = winston.createLogger({
+  level: 'info',
+  format: winston.format.combine(
+    		winston.format.timestamp({
+      format: 'YYYY-MM-DD HH:mm:ss'
+    }),
+          	winston.format.json()
+	),
+  
+  transports: [
+    //
+    // - Write all logs with level `error` and below to `error.log`
+    // - Write all logs with level `info` and below to `combined.log`
+    new winston.transports.File({ filename: 'combined.log' }),
+    new Elasticsearch(esTransportOpts)
+  ]
+});
+
+function logstore(caller,method,text){
+	id = id +1;
+	logger.info({"index":{"index":"Outgoing", "_id":id}, "level":'info', 'message':""});
+	logger.info({"type":'api-call', "call_name":caller, "method":method, "text_entry":text});
+
+}
 module.exports = app; // for testing
