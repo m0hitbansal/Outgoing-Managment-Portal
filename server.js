@@ -39,8 +39,8 @@ function sendmail(mailOptions){
 //mysql connection
 var connection = mysql.createConnection({
    	host:"localhost",
-    user: 'archit',
-    password:'#Arrow79',
+    user: 'mohit',
+    password:'',
     database:'Outgoing'
 });
 connection.connect(function(err) {
