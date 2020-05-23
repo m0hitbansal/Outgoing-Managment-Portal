@@ -14,6 +14,8 @@ let cron = require('node-cron');
 let nodemailer = require('nodemailer');
 const Nexmo = require('nexmo');
 var parking_array = new Array(51).fill(0);
+var id = 0;
+var no_students='\n';
 // e-mail transport configuration
 let transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -58,7 +60,10 @@ cron.schedule('00 22 * * *', () => {
 		} 
 		else{
 			var i=0;
-			var list="These students are late for today after 10pm ";
+			for(let j=0;j<result.length;j++){
+			no_students+='\n'+result[j]['roll_no'];	
+			}
+			
 			for(i=0;i<result.length;i++){
 				var q = "Select * FROM Student where roll_no = ?";
 				connection.query(q, [result[i]['roll_no']], function(err,result1){
@@ -66,7 +71,6 @@ cron.schedule('00 22 * * *', () => {
 
 					}
 					else{
-						var list1 = result1[0]['roll_no']+'  '+result1[0]['name']+' ';
 						let mailOptions = {
     						 from: 'rathore.rs.sameer@gmail.com',
 	     				 	 to: result1[0]['email'] ,
@@ -74,7 +78,6 @@ cron.schedule('00 22 * * *', () => {
 	      					 text: 'Dear '+ result1[0]['name']+',\n you are late, kindly reach hostel ASAP.'
 						};
 						sendmail(mailOptions);
-						list.concat(list1);
 					}
 				});
 				
@@ -84,7 +87,7 @@ cron.schedule('00 22 * * *', () => {
         						 from: 'rathore.rs.sameer@gmail.com',
 		     				 	 to: 'mohit.bansal@iiitb.org' ,
 		      					 subject: 'Hostel Reminder',
-		      					 text: list
+		      					 text: 'These students are late for today after 10pm '+ no_students
 							};
 			sendmail(mailOptions);
 		}
@@ -214,7 +217,6 @@ app.post('/userdetails', function (req, res) {
 				res.send(result);
 
 			else{
-				console.log("i am he");
 				res.sendStatus(404);
 			}
 		}	
@@ -223,7 +225,7 @@ app.post('/userdetails', function (req, res) {
 
 // check leave request can happen or not
 app.post('/checkleave',function(req,res){
-	var q = "SELECT roll_no,MAX(id) as id from Apply_Leave where roll_no= ? and entry_time IS NULL GROUP BY roll_no";
+	var q = "SELECT roll_no,MAX(id) as id from Apply_Leave where roll_no= ? and ((exit_time IS NOT NULL and entry_time IS NULL) or status = '0') GROUP BY roll_no";
 	connection.query(q, [req.body.roll], function (err, result) {
 		if (err){
 			res.end(err);
@@ -669,7 +671,7 @@ const logger = winston.createLogger({
     // - Write all logs with level `error` and below to `error.log`
     // - Write all logs with level `info` and below to `combined.log`
     new winston.transports.File({ filename: 'combined.log' }),
-    //new Elasticsearch(esTransportOpts)
+   // new Elasticsearch(esTransportOpts)
   ]
 });
 
