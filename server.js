@@ -39,8 +39,8 @@ function sendmail(mailOptions){
 //mysql connection
 var connection = mysql.createConnection({
    	host:"localhost",
-    user: 'mohit',
-    password:'',
+    user: 'archit',
+    password:'#Arrow79',
     database:'Outgoing'
 });
 connection.connect(function(err) {
@@ -670,7 +670,7 @@ const logger = winston.createLogger({
     // - Write all logs with level `error` and below to `error.log`
     // - Write all logs with level `info` and below to `combined.log`
     new winston.transports.File({ filename: 'combined.log' }),
-    new Elasticsearch(esTransportOpts)
+    // new Elasticsearch(esTransportOpts)
   ]
 });
 
