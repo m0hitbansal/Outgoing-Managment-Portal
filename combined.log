@@ -56,3 +56,11 @@
 {"message":{"type":"api-call","call_name":"/getLeaves","method":"GET","text_entry":"Fetch all leaves which status is 0"},"level":"info","timestamp":"2020-05-23 12:12:08"}
 {"message":{"index":{"index":"Outgoing","_id":19},"level":"info","message":""},"level":"info","timestamp":"2020-05-23 12:12:16"}
 {"message":{"type":"api-call","call_name":"/allow_leave","method":"POST","text_entry":"Leave rejected by warden"},"level":"info","timestamp":"2020-05-23 12:12:16"}
+{"message":{"index":{"index":"Outgoing","_id":1},"level":"info","message":""},"level":"info","timestamp":"2020-05-23 12:26:45"}
+{"message":{"type":"api-call","call_name":"/checkrole","method":"POST","text_entry":"Student login Mohit.Bansal@iiitb.org"},"level":"info","timestamp":"2020-05-23 12:26:45"}
+{"message":{"index":{"index":"Outgoing","_id":2},"level":"info","message":""},"level":"info","timestamp":"2020-05-23 12:26:45"}
+{"message":{"type":"api-call","call_name":"/getdetails","method":"GET","text_entry":"Get student details ofmohit bansal"},"level":"info","timestamp":"2020-05-23 12:26:45"}
+{"message":{"index":{"index":"Outgoing","_id":3},"level":"info","message":""},"level":"info","timestamp":"2020-05-23 12:27:00"}
+{"message":{"type":"api-call","call_name":"/checkrole","method":"POST","text_entry":"warden login"},"level":"info","timestamp":"2020-05-23 12:27:00"}
+{"message":{"index":{"index":"Outgoing","_id":4},"level":"info","message":""},"level":"info","timestamp":"2020-05-23 12:27:00"}
+{"message":{"type":"api-call","call_name":"/getLeaves","method":"GET","text_entry":"Fetch all leaves which status is 0"},"level":"info","timestamp":"2020-05-23 12:27:00"}
