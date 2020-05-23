@@ -244,7 +244,7 @@ app.post('/checkleave',function(req,res){
 // Apply leave for this student
 app.post('/request_leave', function (req, res) {
 	console.log('Inside request leave');
-	var roll_number=req.body.roll;
+	var roll_number=sess.roll_no;
 	var parent=req.body.gdnphn;
 	var depart=new Date(req.body.depdate);
 	depart= depart.toISOString().split('T')[0] + ' '  
