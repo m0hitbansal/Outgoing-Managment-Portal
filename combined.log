@@ -122,3 +122,19 @@
 {"message":{"type":"api-call","call_name":"/checkrole","method":"POST","text_entry":"warden login"},"level":"info","timestamp":"2020-05-23 15:44:23"}
 {"message":{"index":{"index":"Outgoing","_id":6},"level":"info","message":""},"level":"info","timestamp":"2020-05-23 15:44:24"}
 {"message":{"type":"api-call","call_name":"/getLeaves","method":"GET","text_entry":"Fetch all leaves which status is 0"},"level":"info","timestamp":"2020-05-23 15:44:24"}
+{"message":{"index":{"index":"Outgoing","_id":1},"level":"info","message":""},"level":"info","timestamp":"2020-05-23 16:04:02"}
+{"message":{"type":"api-call","call_name":"/localcheckout","method":"POST","text_entry":"MT2019048 is local out"},"level":"info","timestamp":"2020-05-23 16:04:02"}
+{"message":{"index":{"index":"Outgoing","_id":2},"level":"info","message":""},"level":"info","timestamp":"2020-05-23 16:04:02"}
+{"message":{"type":"api-call","call_name":"/localcheckin","method":"POST","text_entry":"undefined is local in"},"level":"info","timestamp":"2020-05-23 16:04:02"}
+{"message":{"index":{"index":"Outgoing","_id":1},"level":"info","message":""},"level":"info","timestamp":"2020-05-23 20:36:28"}
+{"message":{"type":"api-call","call_name":"/checkrole","method":"POST","text_entry":"Guard login"},"level":"info","timestamp":"2020-05-23 20:36:28"}
+{"message":{"index":{"index":"Outgoing","_id":2},"level":"info","message":""},"level":"info","timestamp":"2020-05-23 20:36:48"}
+{"message":{"type":"api-call","call_name":"/localcheckout","method":"POST","text_entry":"MT2019048 is local out"},"level":"info","timestamp":"2020-05-23 20:36:48"}
+{"message":{"index":{"index":"Outgoing","_id":3},"level":"info","message":""},"level":"info","timestamp":"2020-05-23 20:37:01"}
+{"message":{"type":"api-call","call_name":"/Guard_fetch_leave","method":"POST","text_entry":"Guard fetch leave details ofundefined"},"level":"info","timestamp":"2020-05-23 20:37:01"}
+{"message":{"index":{"index":"Outgoing","_id":4},"level":"info","message":""},"level":"info","timestamp":"2020-05-23 20:37:06"}
+{"message":{"type":"api-call","call_name":"/home_checkout","method":"POST","text_entry":"mohit bansal is home out"},"level":"info","timestamp":"2020-05-23 20:37:06"}
+{"message":{"index":{"index":"Outgoing","_id":5},"level":"info","message":""},"level":"info","timestamp":"2020-05-23 20:52:45"}
+{"message":{"type":"api-call","call_name":"/Guard_fetch_leave","method":"POST","text_entry":"Guard fetch leave details ofundefined"},"level":"info","timestamp":"2020-05-23 20:52:45"}
+{"message":{"index":{"index":"Outgoing","_id":6},"level":"info","message":""},"level":"info","timestamp":"2020-05-23 20:52:47"}
+{"message":{"type":"api-call","call_name":"/home_checkin","method":"POST","text_entry":"mohit bansal is home in"},"level":"info","timestamp":"2020-05-23 20:52:47"}

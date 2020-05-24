@@ -12,7 +12,7 @@ const multer = require('multer');
 app.use(express.static(path.join(__dirname, 'public')))
 let cron = require('node-cron');
 let nodemailer = require('nodemailer');
-const Nexmo = require('nexmo');
+
 var parking_array = new Array(51).fill(0);
 var id = 0;
 var no_students='\n';
@@ -610,7 +610,7 @@ app.post('/visitorexit', function (req, res) {
     	}  
 	});                    	
 });
-
+//const Nexmo = require('nexmo');
 // function sendsms(text,number){
 // 	const nexmo = new Nexmo({
 // 	  apiKey: 'd2493ae3',
@@ -671,7 +671,7 @@ const logger = winston.createLogger({
     // - Write all logs with level `error` and below to `error.log`
     // - Write all logs with level `info` and below to `combined.log`
     new winston.transports.File({ filename: 'combined.log' }),
-   // new Elasticsearch(esTransportOpts)
+    //new Elasticsearch(esTransportOpts)
   ]
 });
 

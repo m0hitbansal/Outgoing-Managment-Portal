@@ -13,6 +13,9 @@
     - description: shell file for run
       script: |
         #!/bin/bash
+        docker stop  $(docker ps -aq)
+        docker rm  $(docker ps -aq)
+        docker rmi -f m0hitbansal/outgoing-webapp
         docker pull m0hitbansal/outgoing-sql
         docker pull m0hitbansal/outgoing-webapp
     keepgoing: false

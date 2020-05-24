@@ -12,7 +12,6 @@ const multer = require('multer');
 app.use(express.static(path.join(__dirname, 'public')))
 let cron = require('node-cron');
 let nodemailer = require('nodemailer');
-const Nexmo = require('nexmo');
 var parking_array = new Array(51).fill(0);
 var id = 0;
 var no_students='\n';
@@ -610,7 +609,7 @@ app.post('/visitorexit', function (req, res) {
     	}  
 	});                    	
 });
-
+//const Nexmo = require('nexmo');
 // function sendsms(text,number){
 // 	const nexmo = new Nexmo({
 // 	  apiKey: 'd2493ae3',

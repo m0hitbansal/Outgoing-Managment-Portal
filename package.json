@@ -30,12 +30,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/shankei/Outgoing-management-system.git"
+    "url": "git+https://github.com/m0hitbansal/Outgoing-Managment-Portal"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/shankei/Outgoing-management-system/issues"
+    "url": "https://github.com/m0hitbansal/Outgoing-Managment-Portal/issues"
   },
-  "homepage": "https://github.com/shankei/Outgoing-management-system#readme"
+  "homepage": "https://github.com/m0hitbansal/Outgoing-Managment-Portal#readme"
 }
