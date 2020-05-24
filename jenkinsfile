@@ -14,7 +14,8 @@ pipeline {
     }
     stage('Test application'){
         steps {
-             sh 'mocha --exit'
+             sh 'npm install'
+             sh 'npm test'
         }
     }
     stage('Building image') {

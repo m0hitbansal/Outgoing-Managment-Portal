@@ -1,9 +1,9 @@
 .*
-docs
+doc
 *.md
 server.js
 test
 jenkinsfile
 follow_comands.txt
 node_modules
-outgoing_deployment .yaml
+outgoing_deployment.yaml

@@ -138,3 +138,11 @@
 {"message":{"type":"api-call","call_name":"/Guard_fetch_leave","method":"POST","text_entry":"Guard fetch leave details ofundefined"},"level":"info","timestamp":"2020-05-23 20:52:45"}
 {"message":{"index":{"index":"Outgoing","_id":6},"level":"info","message":""},"level":"info","timestamp":"2020-05-23 20:52:47"}
 {"message":{"type":"api-call","call_name":"/home_checkin","method":"POST","text_entry":"mohit bansal is home in"},"level":"info","timestamp":"2020-05-23 20:52:47"}
+{"message":{"index":{"index":"Outgoing","_id":1},"level":"info","message":""},"level":"info","timestamp":"2020-05-24 13:56:28"}
+{"message":{"type":"api-call","call_name":"/localcheckout","method":"POST","text_entry":"MT2019048 is local out"},"level":"info","timestamp":"2020-05-24 13:56:28"}
+{"message":{"index":{"index":"Outgoing","_id":2},"level":"info","message":""},"level":"info","timestamp":"2020-05-24 13:56:29"}
+{"message":{"type":"api-call","call_name":"/localcheckin","method":"POST","text_entry":"undefined is local in"},"level":"info","timestamp":"2020-05-24 13:56:29"}
+{"message":{"index":{"index":"Outgoing","_id":1},"level":"info","message":""},"level":"info","timestamp":"2020-05-24 14:21:28"}
+{"message":{"type":"api-call","call_name":"/localcheckout","method":"POST","text_entry":"MT2019048 is local out"},"level":"info","timestamp":"2020-05-24 14:21:29"}
+{"message":{"index":{"index":"Outgoing","_id":2},"level":"info","message":""},"level":"info","timestamp":"2020-05-24 14:21:29"}
+{"message":{"type":"api-call","call_name":"/localcheckin","method":"POST","text_entry":"undefined is local in"},"level":"info","timestamp":"2020-05-24 14:21:29"}
