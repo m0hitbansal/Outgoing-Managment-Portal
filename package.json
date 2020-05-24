@@ -21,7 +21,7 @@
     "nodemon": "^2.0.4",
     "request": "^2.88.2",
     "winston": "^3.2.1",
-    "winston-elasticsearch": "^0.8.8"
+    "winston-elasticsearch": "^0.7.12"
   },
   "devDependencies": {},
   "scripts": {
