@@ -397,7 +397,7 @@ app.post('/localcheckin', function (req, res) {
 			res.end(err);
 		} 
 		else {
-			logstore('/localcheckin','POST',req.body.roll+' is local in');
+			logstore('/localcheckin','POST',sess.roll_no+' is local in');
 			res.send("done");
 		}
 	});
@@ -425,7 +425,7 @@ app.post('/Guard_fetch_leave', function (req, res) {
 					}
 					else{
 						if(result1.length>0){
-							logstore('/Guard_fetch_leave','POST','Guard fetch leave details of'+req.body.rolls);
+							logstore('/Guard_fetch_leave','POST','Guard fetch leave details of'+req.body.rollno);
 							res.send(result1);
 						}
 						else{

@@ -146,3 +146,9 @@
 {"message":{"type":"api-call","call_name":"/localcheckout","method":"POST","text_entry":"MT2019048 is local out"},"level":"info","timestamp":"2020-05-24 14:21:29"}
 {"message":{"index":{"index":"Outgoing","_id":2},"level":"info","message":""},"level":"info","timestamp":"2020-05-24 14:21:29"}
 {"message":{"type":"api-call","call_name":"/localcheckin","method":"POST","text_entry":"undefined is local in"},"level":"info","timestamp":"2020-05-24 14:21:29"}
+{"message":{"index":{"index":"Outgoing","_id":1},"level":"info","message":""},"level":"info","timestamp":"2020-05-24 14:30:30"}
+{"message":{"type":"api-call","call_name":"/checkrole","method":"POST","text_entry":"Guard login"},"level":"info","timestamp":"2020-05-24 14:30:30"}
+{"message":{"index":{"index":"Outgoing","_id":2},"level":"info","message":""},"level":"info","timestamp":"2020-05-24 14:30:46"}
+{"message":{"type":"api-call","call_name":"/localcheckout","method":"POST","text_entry":"MT2019048 is local out"},"level":"info","timestamp":"2020-05-24 14:30:46"}
+{"message":{"index":{"index":"Outgoing","_id":3},"level":"info","message":""},"level":"info","timestamp":"2020-05-24 14:30:52"}
+{"message":{"type":"api-call","call_name":"/localcheckin","method":"POST","text_entry":"undefined is local in"},"level":"info","timestamp":"2020-05-24 14:30:52"}

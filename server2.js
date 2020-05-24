@@ -396,7 +396,7 @@ app.post('/localcheckin', function (req, res) {
 			res.end(err);
 		} 
 		else {
-			logstore('/localcheckin','POST',req.body.roll+' is local in');
+			logstore('/localcheckin','POST',sess.roll_no+' is local in');
 			res.send("done");
 		}
 	});
@@ -424,7 +424,7 @@ app.post('/Guard_fetch_leave', function (req, res) {
 					}
 					else{
 						if(result1.length>0){
-							logstore('/Guard_fetch_leave','POST','Guard fetch leave details of'+req.body.rolls);
+							logstore('/Guard_fetch_leave','POST','Guard fetch leave details of'+req.body.rollno);
 							res.send(result1);
 						}
 						else{
@@ -670,7 +670,7 @@ const logger = winston.createLogger({
     // - Write all logs with level `error` and below to `error.log`
     // - Write all logs with level `info` and below to `combined.log`
     new winston.transports.File({ filename: 'combined.log' }),
-   // new Elasticsearch(esTransportOpts)
+    //new Elasticsearch(esTransportOpts)
   ]
 });
 
