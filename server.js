@@ -181,7 +181,7 @@ app.get('/getdetails', function (req, res) {
 			res.end(err);
 		} 
 		else {
-			logstore('/getdetails','GET','Get student details of'+ result[0]['name']);
+			logstore('/getdetails','GET','Get student details ');
 			console.log('all details picked up picked up for this student');
 				res.send(result);
 		}
@@ -671,7 +671,7 @@ const logger = winston.createLogger({
     // - Write all logs with level `error` and below to `error.log`
     // - Write all logs with level `info` and below to `combined.log`
     new winston.transports.File({ filename: 'combined.log' }),
-   // new Elasticsearch(esTransportOpts)
+    //new Elasticsearch(esTransportOpts)
   ]
 });
 
