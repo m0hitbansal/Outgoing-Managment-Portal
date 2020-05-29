@@ -55,3 +55,16 @@ describe('successful checkin', function() {
 	    
 	});
 });
+describe('if student do no apply leave then give error', function() {
+	it('Main page content',  function(done){
+	    chai.request(server)
+	    .post('/Guard_fetch_leave')
+	    .send({roll:'MT2019100',depdate:'2020-05-29'})
+	    .end(function(err,res){
+	        expect(res).to.have.status(404);
+	     
+	        //expect(res.text).to.equal('done');
+	        done();
+	    });
+	});
+});
